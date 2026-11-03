@@ -1,0 +1,14 @@
+node_modules/
+.next/
+pnpm-lock.yaml
+drizzle/meta/
+public/icons/
+next-env.d.ts
+
+# Assessment source documents are kept verbatim.
+a.md
+b.md
+c.md
+d.md
+e.md
+brief.md

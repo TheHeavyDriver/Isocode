@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sahaj-order-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sahaj
+      POSTGRES_PASSWORD: sahaj
+      POSTGRES_DB: sahaj_order
+    ports:
+      - "5435:5432"
+    volumes:
+      - sahaj_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sahaj -d sahaj_order"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  sahaj_pgdata:
