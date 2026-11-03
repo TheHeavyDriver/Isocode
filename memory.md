@@ -1,0 +1,237 @@
+# Project Memory — Sahaj Order
+
+**Purpose:** The chronological source of truth for every material change, decision, and open item in this project. Read this first. Append an entry after every change; do not wait for the user to ask.
+
+**Last updated:** 3 November 2026  
+**Current phase:** Core slice implemented and verified locally; deployment, git history, and submission packaging remain.  
+**Chosen problem:** A — distributor order capture (`a.md`).
+
+---
+
+## 1. How This File Stays Current
+
+This is the operating contract for every agent session:
+
+1. **Read first:** read `memory.md`, `architecture.md`, and `PRD.md` before starting work.
+2. **Append, do not rewrite:** after every material change, add a new `CHG-####` row at the top of the change log. Never rewrite history; add a correction entry if something was wrong.
+3. **Be specific:** include the date, type, summary, files, rationale, verification, and architecture impact.
+4. **Verify:** every change needs a verification note — a command, a test, or a manual check. "Done" without evidence is not done.
+5. **Keep architecture in sync:** if the change affects module boundaries, the data model, external dependencies, deployment, or a key decision, update `architecture.md` in the same task.
+6. **Update the state:** refresh "Current state", "Open questions", and "Next actions" when they change.
+7. **No reminder needed:** updating this file is part of finishing a task, not an optional extra.
+
+If a future session reads this file, it should know exactly what has been built, what was decided, what is still open, and what to do next.
+
+---
+
+## 2. Current State
+
+| Item                 | Status                                                                                              |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| Problem statement    | Chosen: A — distributor order capture                                                               |
+| Product requirements | `PRD.md` written, 82 user stories, assumptions labelled                                             |
+| Roadmap              | `ROADMAP.md` written, 7 days from 2–8 November 2026                                                 |
+| Implementation plan  | `plans/2026-11-02-sahaj-order-implementation-v1.md`, 17 tasks, structurally validated               |
+| Architecture         | `architecture.md` synced to the implemented core slice                                              |
+| Application code     | Core slice implemented: auth, catalogue, cart, orders, AI capture, desk, Tally export, account, PWA |
+| Database             | PostgreSQL via Docker Compose on port 5435; 33 products, 10 retailers, 20 orders, 6 schemes         |
+| Unit tests           | 45 passing: 17 scheme/pricing, 17 AI parser, 11 Tally                                               |
+| Build                | `pnpm build` passes; production build generated all routes                                          |
+| Runtime verification | Authenticated smoke flow passed end to end, including credit hold and cross-retailer isolation      |
+| Documentation        | `README.md` and `deployment.md` written; Tally assumptions documented                               |
+| Git repository       | Not initialised in this workspace yet                                                               |
+| Deployment           | Local only; Vercel + Neon guide written, not deployed                                               |
+| Submission ZIP       | Not created                                                                                         |
+
+**Next milestone:** initialise git, commit the core slice in small logical steps, then decide whether a live Vercel + Neon demo is required before the 8 November deadline.
+
+---
+
+## 3. Change Log
+
+Newest entries at the top. IDs are sequential and never reused.
+
+| ID       | Date       | Type     | Change                                                                                                                                                                                                                                      | Files                                                                                                                                          | Verification                                                                                                                                                                                                                                                                                                             | Architecture impact                                                                                       |
+| -------- | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| CHG-0023 | 2026-11-03 | fix      | Fixed `pnpm db:reset` to drop the `drizzle` migration-journal schema as well as `public`; previously migrations were skipped and seeding failed after a reset                                                                               | `scripts/reset.ts`                                                                                                                             | `pnpm db:reset` completed end to end; seed counts 33 products, 10 retailers, 20 orders, 6 schemes, 2 captures, 1 export; seeded order `SO-20261102-0042` restored at ₹26,979.00                                                                                                                                          | No schema change; restores the documented local reset and demo-recovery path                              |
+| CHG-0022 | 2026-11-03 | chore    | Added Prettier ignore rules for generated, dependency, and assessment-source files, then formatted the application, tests, scripts, and project docs                                                                                        | `.prettierignore`, application/test/script files, `README.md`, `deployment.md`, `architecture.md`, `memory.md`, planning docs                  | `pnpm format:check` passes; `pnpm check` passes 45 tests; `pnpm build` passes after formatting                                                                                                                                                                                                                           | No behaviour change; establishes a clean formatting baseline for the first commit                         |
+| CHG-0021 | 2026-11-03 | docs     | Wrote the handover documentation and synced the architecture to what was actually built: runtime endpoints, nine screens, AI accept-to-cart gate, export batching, local-only deployment status, test coverage, and Tally assumptions       | `README.md`, `deployment.md`, `architecture.md`, `memory.md`                                                                                   | Re-read the docs against the route tree and services; `pnpm check` and `pnpm build` pass after the edits                                                                                                                                                                                                                 | Makes the documented module boundaries, API surface, flows, and deployment shape match the implementation |
+| CHG-0020 | 2026-11-02 | test     | Completed the authenticated runtime smoke flow and production build: manual order, credit hold and approval, desk confirmation, XML and CSV download, duplicate-export 409, role denial, and cross-retailer isolation                       | No code change                                                                                                                                 | `pnpm build` passed; `pnpm check` passed 45 tests; retailer/desk pages returned 200; order `SO-20261102-0043` exported once and a retry returned `ALREADY_EXPORTED`; Retailer 2 saw no foreign order and received 404/403 on cancel/download                                                                             | Confirms the implemented flows match the architecture and the server-authority rules                      |
+| CHG-0019 | 2026-11-02 | fix      | Hardened the deterministic AI parser for Hindi: preserved Devanagari matras, recognised Hindi case units and stop words, and preferred multi-word aliases over generic tokens                                                               | `lib/ai/normalize.ts`, `lib/ai/parser.ts`, `tests/unit/ai-parser.test.ts`                                                                      | 17 parser tests pass, including Hindi/Hinglish messages, aliases, confidence, and unit ambiguity                                                                                                                                                                                                                         | No boundary change; strengthens the provider-independent AI path                                          |
+| CHG-0018 | 2026-11-02 | feat     | Added the account screen, persisted retailer language preference, translated retailer navigation and core labels, and shipped PWA icons and manifest metadata                                                                               | `app/(retailer)/account/`, `app/api/language/route.ts`, `lib/i18n.ts`, `components/retailer/language-toggle.tsx`, `public/`, `app/manifest.ts` | Account and language endpoints exercised in the runtime smoke; manifest route built; language survives reload                                                                                                                                                                                                            | Adds the retailer account/i18n/PWA layer; desk remains English; preference stored on `retailers.language` |
+| CHG-0017 | 2026-11-02 | feat     | Built Tally Prime XML and CSV export builders, checksum, export log, desk download, and duplicate-export protection                                                                                                                         | `lib/exports/tally.ts`, `lib/exports/service.ts`, `app/api/exports/`, `app/(desk)/desk/exports/page.tsx`, `tests/unit/tally.test.ts`           | 11 Tally tests pass; XML and CSV downloaded with correct headers; duplicate export returned 409; exported order status checked in PostgreSQL                                                                                                                                                                             | Adds the export module, `exports`/`export_orders` transaction, and download authorization                 |
+| CHG-0016 | 2026-11-02 | feat     | Built the desk queue, order detail with raw-vs-parsed AI comparison, credit actions, confirm/cancel, audit timeline, and export panel                                                                                                       | `app/(desk)/`, `components/desk/`                                                                                                              | Queue, detail, and export pages returned 200; hold/approve/confirm/cancel actions exercised; audit rows written                                                                                                                                                                                                          | Implements the desk side of the order lifecycle and export flow                                           |
+| CHG-0015 | 2026-11-02 | feat     | Implemented AI capture: normalisation, deterministic parser and matcher, optional OpenAI/Anthropic adapter with fallback, catalogue grounding, confidence, alternatives, alias learning, review UI, and confirm-to-cart                     | `lib/ai/`, `app/api/ai/captures/`, `app/(retailer)/ai/`, `components/retailer/ai-capture-review.tsx`, `lib/db/seed-data.ts`                    | Hindi capture created with two lines, fetched, reviewed, and confirmed; parser suite passes; no order is created by confirmation                                                                                                                                                                                         | Adds the AI boundary: provider proposes, catalogue grounds, human confirms, checkout re-prices            |
+| CHG-0014 | 2026-11-02 | feat     | Implemented server-authoritative cart preview and checkout with free goods, slab discounts, nudges, atomic stock reservation, credit hold, idempotency, IST order numbers, retailer history/detail, repeat, and cancel                      | `lib/orders/`, `lib/schemes/`, `lib/pricing/`, `app/api/cart/preview/`, `app/api/orders/`, `app/(retailer)/cart/`, `app/(retailer)/orders/`    | 17 scheme/pricing tests pass; seeded cart preview totalled ₹26,979.00 with two free cases; checkout created one order and an idempotent replay returned the same order                                                                                                                                                   | Core ordering boundary; server owns prices, stock, credit, and totals                                     |
+| CHG-0013 | 2026-11-02 | feat     | Built the retailer catalogue read model and shop UI: retailer pricing, stock and scheme badges, search/filters, packshots, quantity stepper, local cart, credit strip, cart bar, and bottom nav                                             | `lib/catalogue/`, `app/(retailer)/shop/`, `components/retailer/`                                                                               | Shop page returned 200; filters, search, cart persistence, and stepper exercised in the browser                                                                                                                                                                                                                          | Adds the catalogue and client-cart layer; checkout remains server-authoritative                           |
+| CHG-0012 | 2026-11-02 | feat     | Implemented phone OTP auth with hashed codes, opaque sessions, httpOnly cookie, role guards, and the login screen                                                                                                                           | `lib/auth/`, `lib/security/rate-limit.ts`, `lib/http/api.ts`, `app/api/auth/`, `app/(auth)/login/`, `components/auth/login-form.tsx`           | Retailer and desk OTP login succeeded; retailer received 403 on desk export APIs and was redirected away from `/desk`                                                                                                                                                                                                    | Establishes identity, roles, session scoping, and the CSRF/rate-limit boundary                            |
+| CHG-0011 | 2026-11-02 | chore    | Scaffolded the Next.js 16 App Router app with TypeScript, Tailwind 4, Drizzle/PostgreSQL, Zod, Vitest, pnpm scripts, CI, design tokens, Docker Compose, env schema, migrations, and deterministic seed data                                 | `package.json`, `app/`, `lib/db/`, `drizzle/`, `scripts/`, `docker-compose.yml`, `.env.example`, `.github/workflows/ci.yml`                    | `pnpm db:reset` created the schema and seed; seed counts checked in PostgreSQL; lint/typecheck/test/build pass at the end of the slice                                                                                                                                                                                   | Locks the stack, data model, local database shape, and verification commands                              |
+| CHG-0010 | 2026-11-02 | docs     | Clarified that new change entries go at the top of the memory log, so the newest state is always first                                                                                                                                      | `memory.md`, `AGENTS.md`                                                                                                                       | Re-read both files to confirm the instruction matches the table layout                                                                                                                                                                                                                                                   | None                                                                                                      |
+| CHG-0009 | 2026-11-02 | docs     | Added PWA installability and stale-cache guardrails to the UI architecture; completed a final documentation consistency pass                                                                                                                | `architecture.md`                                                                                                                              | Grep-checked for PWA, manifest, and installable references; internal markdown link check confirmed all relative links resolve                                                                                                                                                                                            | Clarifies the retailer client's PWA layer; no backend change                                              |
+| CHG-0008 | 2026-11-02 | docs     | Created the project memory and the agent protocol that keeps it current                                                                                                                                                                     | `memory.md`, `AGENTS.md`                                                                                                                       | Files written; protocol reviewed against the user's requirement that memory updates happen without reminders                                                                                                                                                                                                             | None                                                                                                      |
+| CHG-0007 | 2026-11-02 | docs     | Added `idempotencyKey` to Order and an `ExportOrder` join to the data model so the architecture's duplicate-prevention rule is representable                                                                                                | `PRD.md`                                                                                                                                       | Cross-checked the Order and Export rows against the architecture ERD and export transaction                                                                                                                                                                                                                              | Aligns the PRD data model with the architecture; no code impact                                           |
+| CHG-0006 | 2026-11-02 | docs     | Created the system architecture: context, modular monolith, modules, data model, flows, scheme engine, AI pipeline, auth, UI, API, deployment, performance, testing, decisions, and future evolution                                        | `architecture.md`                                                                                                                              | Reviewed against `PRD.md`, `ROADMAP.md`, and the implementation plan for consistency                                                                                                                                                                                                                                     | Defines the target architecture; implementation must follow it or update it                               |
+| CHG-0005 | 2026-11-02 | docs     | Corrected scope so the retailer-facing screens ship with a Hindi/English toggle, matching the brief's language constraint; desk and long-form content remain English                                                                        | `PRD.md`, `ROADMAP.md`, plan                                                                                                                   | Grep-checked Hindi/English references across all three documents; no contradictions remain                                                                                                                                                                                                                               | Adds a small i18n layer to the retailer UI; no backend change                                             |
+| CHG-0004 | 2026-11-02 | docs     | Created the 17-task implementation plan with dependencies, verification criteria, risks, alternatives, assumptions, and notes                                                                                                               | `plans/2026-11-02-sahaj-order-implementation-v1.md`                                                                                            | Structural validation passed: correct filename, required sections, 17 checkboxes, no code blocks, task numbering sequential. The provided validator was run from a copy with `set -euo pipefail` relaxed to `set -eu` because the original's early-section checks fail on a `grep -q`/pipefail interaction in this shell | Establishes the build sequence and test strategy                                                          |
+| CHG-0003 | 2026-11-02 | docs     | Created the 7-day roadmap: milestones, day-by-day deliverables, scope, cut list, risks, demo script, metrics, and submission checklist                                                                                                      | `ROADMAP.md`                                                                                                                                   | Reviewed against the PRD and brief for scope and sequence                                                                                                                                                                                                                                                                | Defines the delivery plan; no system change                                                               |
+| CHG-0002 | 2026-11-02 | docs     | Created the product requirements: problem, solution, 82 user stories, data model, scheme engine, AI policy, API, security, testing, out-of-scope, and assumptions                                                                           | `PRD.md`                                                                                                                                       | User-story numbering checked from 1 to 82 with no gaps; sections reviewed against the PRD template                                                                                                                                                                                                                       | Defines the product contract; no code impact                                                              |
+| CHG-0001 | 2026-11-02 | decision | Read `brief.md` and all five problem statements; selected A because it has the best balance of a tight core slice, visible AI with specified failure behaviour, a deterministic hard part, strong UI potential, and low infrastructure risk | `a.md`, `b.md`, `c.md`, `d.md`, `e.md`, `brief.md`                                                                                             | Comparative analysis across feasibility, UI ceiling, AI depth, engineering depth, and risk; recommendation accepted by the user                                                                                                                                                                                          | Locks the problem choice; all later documents build on it                                                 |
+
+---
+
+## 4. Decision Register
+
+| ID      | Decision                                                                                                                                        | Status   | Rationale                                                                                                | Alternatives considered                                                    |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| DEC-001 | Build problem A, the distributor order-capture app                                                                                              | Accepted | Tightest core slice with a real AI workflow, a testable scheme engine, and a strong mobile UI            | B (reconciliation), C (college ERP), D (farmer collection), E (car dealer) |
+| DEC-002 | Ship the core slice only; treat photo/voice, offline salesman mode, van loading, the 14-day dashboard, and admin CRUD as stretch                | Accepted | The brief rewards a small part done well; 7 days solo                                                    | Build the full must-have list and risk unfinished work                     |
+| DEC-003 | Use a Next.js App Router modular monolith with TypeScript, Tailwind, PostgreSQL, and Drizzle                                                    | Accepted | One deploy, one auth boundary, server rendering for slow 3G, fast solo iteration                         | Separate SPA and API; Prisma; SQLite                                       |
+| DEC-004 | Use a hybrid AI pipeline: LLM extraction, deterministic catalogue grounding, confidence bands, human confirmation, and a deterministic fallback | Accepted | The model handles messy Hindi/Hinglish; the catalogue supplies truth; the human gate prevents bad orders | LLM-only; rules-only                                                       |
+| DEC-005 | Support buy-X-get-Y and slab-percent schemes, one best scheme per SKU, free-stock cap, and paisa rounding                                       | Accepted | Matches the brief, stays explainable, and is testable in the time available                              | Generic rule engine with stacking and retailer segments                    |
+| DEC-006 | Use a client cart with server re-pricing and stock reservation at order placement                                                               | Accepted | Simple state, safe server authority, prevents overselling                                                | Server-side draft cart; reserve stock only at desk confirmation            |
+| DEC-007 | Export Tally Prime XML as the primary format with a CSV fallback                                                                                | Accepted | Stronger automation demo; the CSV covers format uncertainty                                              | CSV only                                                                   |
+| DEC-008 | Ship a Hindi/English toggle on retailer-facing screens; keep desk and long-form content in English                                              | Accepted | Meets the brief's language constraint without doubling all content work                                  | English-only; full bilingual UI                                            |
+| DEC-009 | Seed master data and keep admin CRUD as stretch                                                                                                 | Accepted | Focus the 7 days on the core flow, polish, and tests                                                     | Build an admin CMS first                                                   |
+| DEC-010 | Ship 7 core screens: login, catalogue, cart, AI capture/review, order confirmation/history, desk queue, desk order detail/export                | Accepted | Fits the brief's 6–8 screen target and keeps the demo tight                                              | Expand to separate product, order history, and admin screens               |
+| DEC-011 | Use opaque, hashed database sessions and hashed OTPs rather than JWTs or plaintext codes                                                        | Accepted | Logout revocation is immediate; a database leak does not expose usable tokens or codes                   | Stateless JWT sessions; plaintext demo codes                               |
+| DEC-012 | Make the deterministic parser the default demo AI path while keeping the OpenAI/Anthropic adapter                                               | Accepted | The demo works without a key and the fallback is honest; a live provider remains a configuration change  | Require a provider key; ship rules-only with no adapter                    |
+| DEC-013 | AI confirmation returns priced cart lines, never a created order                                                                                | Accepted | Preserves the human gate and forces the normal checkout re-price, stock check, and credit check          | Create a pending order directly from the capture                           |
+| DEC-014 | Persist retailer language on `retailers.language` and keep the desk English                                                                     | Accepted | The choice survives sessions and devices without a separate preference table                             | Session-only toggle; full bilingual desk                                   |
+| DEC-015 | Use an in-process fixed-window rate limiter for the MVP                                                                                         | Accepted | No extra infrastructure; adequate for a single-instance demo                                             | Redis-backed distributed limiter                                           |
+
+---
+
+## 5. Open Questions
+
+| ID     | Question                                                                     | Current assumption                                                                                      | Owner         |
+| ------ | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- |
+| OQ-001 | What is the actual submission deadline?                                      | 7 days from 2 November 2026, due 8 November 2026                                                        | User          |
+| OQ-002 | Which AI provider, model, and API key are available?                         | OpenAI/Anthropic adapter implemented; demo defaults to the deterministic parser until a key is supplied | User          |
+| OQ-003 | Is a live deployment required, or is a local demo acceptable?                | Local Docker + production build verified; Vercel + Neon guide written, deployment pending               | User          |
+| OQ-004 | Is a minimal admin CRUD screen expected, or is seed-only master data enough? | Seed-only for the MVP                                                                                   | User          |
+| OQ-005 | Which Tally version and import format does the client use?                   | Tally Prime XML, CSV fallback, assumptions documented; not imported into a live Tally                   | User / client |
+| OQ-006 | Are dealer prices GST-inclusive or exclusive?                                | Inclusive by default, with a per-product flag                                                           | User / client |
+| OQ-007 | Do retailers ever order loose pieces, or only cases?                         | Cases only; piece ordering is explained but not supported                                               | User / client |
+| OQ-008 | How deep should the Hindi translation go?                                    | Retailer toggle, Hindi aliases, Hindi AI input; desk English                                            | User          |
+
+---
+
+## 6. Next Actions
+
+### Immediate
+
+1. Initialise the git repository and commit in small logical steps: planning docs, scaffold/database, auth, catalogue/cart, ordering, AI, desk/exports, and handover docs.
+2. Decide whether the submission needs a live URL. If yes, deploy to Vercel + Neon using `deployment.md`, run migrations/seed, and repeat the smoke checklist.
+3. Ask the client or assessor to perform one supervised Tally XML import; adjust ledger/company names if needed.
+4. Add database-backed integration tests and one Playwright end-to-end path when time allows.
+5. Create the submission ZIP or repository link and confirm the deadline (currently assumed 8 November 2026).
+
+### Demo state
+
+- [x] PostgreSQL schema, migration, and deterministic seed.
+- [x] OTP login for retailer, desk, and admin.
+- [x] Retailer catalogue, cart preview, checkout, history, detail, repeat, cancel.
+- [x] AI capture in Hindi, review, alias learning, confirm-to-cart.
+- [x] Desk queue, credit hold/approve/reject, confirm, cancel, audit.
+- [x] Tally XML/CSV export, download, duplicate protection.
+- [x] Cross-retailer isolation and role denial.
+- [x] Account screen, language persistence, PWA icons/manifest.
+- [x] Lint, typecheck, 45 unit tests, production build.
+- [ ] Git commits and public repository.
+- [ ] Live deployment, if required.
+- [ ] Submission ZIP/link.
+
+### Stretch backlog
+
+- Photo or voice capture feeding the existing AI pipeline.
+- Offline salesman mode with a sync queue and idempotent order replay.
+- Van loading list derived from confirmed orders.
+- 14-day inactive-retailer dashboard.
+- Admin CRUD for catalogue, prices, schemes, and retailers.
+
+### Guardrails
+
+- Do not re-open the problem choice; A is decided.
+- Do not start stretch features until the core slice is committed, documented, and (if required) deployed.
+- Do not add a payment ledger, delivery tracking, GST e-invoicing, or two-way Tally sync.
+- Do not put secrets or real personal data in the repository.
+- Do not mark a task done without updating this file and recording verification.
+
+---
+
+## 7. File Map
+
+| File                                                | Purpose                                                                                          | Status                    |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------- |
+| `brief.md`                                          | The assessment brief, submission rules, and scoring                                              | Source                    |
+| `a.md`                                              | Chosen problem statement                                                                         | Source                    |
+| `b.md`, `c.md`, `d.md`, `e.md`                      | Other problem statements, kept for reference                                                     | Source                    |
+| `PRD.md`                                            | Product requirements, user stories, data model, AI policy, testing, assumptions                  | Written                   |
+| `ROADMAP.md`                                        | 7-day plan, milestones, scope, cut list, risks, demo script                                      | Written                   |
+| `architecture.md`                                   | Current system architecture, modules, flows, deployment, decisions                               | Implemented core synced   |
+| `memory.md`                                         | This file: change log, decisions, open questions, next actions                                   | Living                    |
+| `plans/2026-11-02-sahaj-order-implementation-v1.md` | 17-task implementation checklist                                                                 | Validated; build complete |
+| `AGENTS.md`                                         | Persistent instructions for future agent sessions                                                | Written                   |
+| `README.md`                                         | Product overview, demo logins, local setup, scripts, verification, Tally assumptions             | Written                   |
+| `deployment.md`                                     | Local setup, Vercel + Neon deployment, env names, release checklist, rollback                    | Written                   |
+| `Application source`                                | Next.js app under `app/`, `components/`, `lib/`; migrations in `drizzle/`; scripts in `scripts/` | Implemented               |
+| `Tests`                                             | 45 Vitest unit tests in `tests/unit/`                                                            | Passing                   |
+| `Docker Compose`                                    | PostgreSQL 15+ on `localhost:5435`                                                               | Working                   |
+
+---
+
+## 8. Session Handoff
+
+A new session should be able to continue with these steps:
+
+1. Read `memory.md`, `README.md`, `architecture.md`, `PRD.md`, and `deployment.md`.
+2. Check `git status`, the current phase in section 2, and the next actions in section 6.
+3. If the repo is not initialised, create the commits listed in the immediate actions before changing behaviour.
+4. For a code change, follow the architecture; if a decision must change, record it in the decision register and update `architecture.md`.
+5. Run `pnpm check` and `pnpm build` before claiming completion; for runtime changes, repeat the demo smoke flow.
+6. Append a `CHG-####` entry with files, verification, and architecture impact.
+7. Update "Current state", "Open questions", and "Next actions".
+8. Commit in small, meaningful steps.
+
+**Current blockers:** none. External inputs still needed: deadline confirmation, AI provider key if a live model is required, deployment target, and the client's Tally company/ledger format.
+
+---
+
+## 9. Conventions
+
+- **Date and time:** Asia/Kolkata; use the full date in every entry.
+- **Change IDs:** `CHG-0001`, `CHG-0002`, … sequential, never reused.
+- **Decision IDs:** `DEC-001`, `DEC-002`, … sequential.
+- **Open-question IDs:** `OQ-001`, `OQ-002`, … sequential.
+- **Commit style:** `feat:`, `fix:`, `docs:`, `test:`, `chore:`, `refactor:` with a short imperative summary.
+- **Task tracking:** use the checkboxes in the implementation plan; do not duplicate the whole plan here.
+- **Memory size:** keep entries short. Link to files instead of pasting content.
+- **Corrections:** append a new entry that references the original ID; do not silently rewrite history.
+- **Architecture sync:** any change to a module boundary, data model, external dependency, deployment shape, or key decision updates `architecture.md` and is noted in the change entry.
+
+---
+
+## 10. Verification Log
+
+| Date       | Check                                                | Result                                                                                                                                      |
+| ---------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-02 | User-story numbering in `PRD.md`                     | 1 through 82, no gaps                                                                                                                       |
+| 2026-11-02 | Implementation-plan structure                        | Passed: correct filename, required sections, 17 checkboxes, no code blocks, sequential task numbering                                       |
+| 2026-11-02 | Scope consistency after the Hindi/English correction | Grep-checked across `PRD.md`, `ROADMAP.md`, and the plan; no contradictions                                                                 |
+| 2026-11-02 | Architecture consistency                             | ERD, export duplicate-prevention rule, and PRD data model cross-checked                                                                     |
+| 2026-11-02 | PWA architecture check                               | Manifest, installability, and stale-cache rules present in `architecture.md`                                                                |
+| 2026-11-02 | Internal link check                                  | All relative links in the planning documents resolve                                                                                        |
+| 2026-11-02 | Memory protocol check                                | New entries are placed at the top of the change log in both `memory.md` and `AGENTS.md`                                                     |
+| 2026-11-02 | Secret and placeholder scan                          | No secrets, TODOs, or placeholders in the planning documents                                                                                |
+| 2026-11-02 | Database seed                                        | 33 products, 10 retailers, 4 brands, 6 categories, 6 schemes, 20 orders, 2 AI captures                                                      |
+| 2026-11-02 | Unit suite                                           | 45 tests pass across schemes/pricing, AI parser, and Tally builders                                                                         |
+| 2026-11-02 | Cart and order smoke                                 | Preview total ₹26,979.00 with two free cases; order `SO-20261102-0043` created; idempotent replay returned the same order                   |
+| 2026-11-02 | Credit hold smoke                                    | Retailer 9 order `SO-20261102-0044` held for credit; desk approved and confirmed; CSV exported                                              |
+| 2026-11-02 | Export smoke                                         | XML and CSV downloaded with correct content types; duplicate export returned 409 `ALREADY_EXPORTED`                                         |
+| 2026-11-02 | Isolation and roles                                  | Retailer 2 saw no foreign order; cancel returned 404; export API/download returned 403; `/desk` redirected to `/shop`                       |
+| 2026-11-02 | Page sweep                                           | Retailer `/shop`, `/cart`, `/ai`, `/orders`, `/orders/[id]`, `/account` and desk `/desk`, `/desk/exports`, `/desk/orders/[id]` returned 200 |
+| 2026-11-03 | Lint, typecheck, tests                               | `pnpm check` passed; 45/45 tests                                                                                                            |
+| 2026-11-03 | Production build                                     | `pnpm build` passed all routes under Next.js 16.4.4                                                                                         |
+| 2026-11-03 | Database reset                                       | `pnpm db:reset` fixed to drop the Drizzle journal; full migrate/seed completed and seeded order restored                                    |
+| 2026-11-03 | Formatting baseline                                  | `pnpm format:check` passes after adding `.prettierignore`                                                                                   |
+| 2026-11-03 | Documentation consistency                            | README/deployment/architecture route and endpoint lists checked against the implementation                                                  |
