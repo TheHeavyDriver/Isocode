@@ -503,7 +503,7 @@ sequenceDiagram
 - Six-digit OTP, five-minute expiry, five attempts, 60-second resend cooldown.
 - OTP hashed with a server pepper; no plaintext codes in the database or logs.
 - Opaque session token in an httpOnly, secure, SameSite=Lax cookie; only the token hash is stored.
-- Seven-day session expiry, rotation on login, revocation on logout.
+- Seven-day session expiry, a fresh opaque session on each login, revocation on logout.
 
 **Authorization**
 
