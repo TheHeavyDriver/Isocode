@@ -52,7 +52,7 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
               <div className="absolute bottom-2 left-2 right-2">
                 <SchemeBadge
                   label={product.scheme.label}
-                  className="w-full justify-center bg-green text-surface"
+                  className="w-full justify-center rounded-sm bg-green text-white"
                 />
               </div>
             )}
@@ -60,37 +60,37 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
         </button>
 
         <div className="mt-2 flex flex-1 flex-col">
-          <p className="truncate text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+          <p className="truncate text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
             {product.brandName}
           </p>
           <button
             type="button"
             onClick={openDetails}
-            className="mt-0.5 text-left"
+            className="mt-1 text-left"
             aria-haspopup="dialog"
           >
-            <h3 className="line-clamp-2 min-h-[2.3rem] text-[0.8125rem] font-semibold leading-tight text-ink">
+            <h3 className="line-clamp-2 min-h-[2.3rem] text-[0.8125rem] font-medium leading-tight text-ink">
               {product.name}
             </h3>
           </button>
-          <p className="mt-0.5 text-[0.625rem] text-ink-muted">
+          <p className="mt-1 text-[0.625rem] text-ink-muted">
             {product.caseSize} × {product.packSize} per case
           </p>
 
-          <div className="mt-1.5 flex items-baseline gap-1">
-            <span className="money text-[1.05rem] font-bold leading-none text-ink">
+          <div className="mt-2 flex items-baseline gap-1">
+            <span className="money font-display text-[1.1rem] font-medium leading-none text-ink">
               {formatInr(product.casePricePaisa)}
             </span>
-            <span className="text-[0.5625rem] font-medium uppercase tracking-[0.06em] text-ink-muted">
+            <span className="text-[0.5625rem] font-medium uppercase tracking-[0.08em] text-ink-muted">
               /case
             </span>
           </div>
-          <p className="mt-0.5 text-[0.625rem] text-ink-muted">
+          <p className="mt-1 text-[0.625rem] text-ink-muted">
             {formatInr(product.pricePerPackPaisa)} / {product.packUnit} ·{" "}
             {gstLabel}
           </p>
           {product.isRetailerPrice && (
-            <p className="mt-0.5 text-[0.5625rem] font-semibold text-green">
+            <p className="mt-1 text-[0.5625rem] font-medium uppercase tracking-[0.08em] text-green">
               Your shop price
             </p>
           )}
@@ -128,7 +128,7 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
       <dialog
         ref={dialogRef}
         aria-labelledby={`product-title-${product.id}`}
-        className="m-auto max-h-[92dvh] w-[calc(100%-1.25rem)] max-w-3xl overflow-y-auto rounded-2xl border border-line bg-surface p-0 text-ink shadow-lift backdrop:bg-ink/45 backdrop:backdrop-blur-[2px]"
+        className="m-auto max-h-[92dvh] w-[calc(100%-1.25rem)] max-w-3xl overflow-y-auto rounded-xl border border-line bg-surface p-0 text-ink shadow-lift backdrop:bg-ink/50 backdrop:backdrop-blur-sm"
         onClick={(event) => {
           if (event.target === event.currentTarget) {
             event.currentTarget.close();
@@ -149,7 +149,7 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
                 <button
                   type="button"
                   onClick={() => dialogRef.current?.close()}
-                  className="flex h-9 w-9 items-center justify-center rounded-full text-ink-muted transition hover:bg-paper hover:text-ink"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-transparent text-ink-muted transition hover:border-line hover:bg-paper hover:text-ink"
                   aria-label="Close product details"
                 >
                   <X className="h-4 w-4" />
@@ -168,10 +168,10 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
               {product.packSize}
             </p>
 
-            <div className="mt-4 rounded-xl border border-line bg-paper/55 p-3.5">
+            <div className="mt-5 rounded-lg border border-line bg-paper/60 p-3.5">
               <div className="flex items-end justify-between gap-3">
                 <div>
-                  <p className="money text-2xl font-bold leading-none">
+                  <p className="money font-display text-[1.7rem] font-medium leading-none">
                     {formatInr(product.casePricePaisa)}
                   </p>
                   <p className="mt-1 text-[0.6875rem] text-ink-muted">
@@ -197,9 +197,10 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
             </div>
 
             {product.scheme ? (
-              <div className="mt-3 rounded-xl border border-green/15 bg-green-soft p-3.5">
-                <p className="flex items-center gap-1.5 text-xs font-bold text-green-dark">
-                  <Tag className="h-3.5 w-3.5" /> {product.scheme.label}
+              <div className="mt-3 rounded-lg border border-green/15 bg-green-soft p-3.5">
+                <p className="flex items-center gap-1.5 text-xs font-medium text-green-dark">
+                  <Tag className="h-3.5 w-3.5" strokeWidth={1.7} />{" "}
+                  {product.scheme.label}
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-green-dark/80">
                   {product.scheme.terms}
@@ -211,13 +212,13 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
                 )}
               </div>
             ) : (
-              <p className="mt-3 rounded-xl border border-line bg-paper/40 px-3.5 py-3 text-xs text-ink-muted">
+              <p className="mt-3 rounded-lg border border-line bg-paper/40 px-3.5 py-3 text-xs text-ink-muted">
                 No active scheme on this product right now.
               </p>
             )}
 
             {outOfStock ? (
-              <div className="mt-4 rounded-xl border border-red-200 bg-red-soft px-3.5 py-3 text-sm text-red">
+              <div className="mt-4 rounded-lg border border-red/20 bg-red-soft px-3.5 py-3 text-sm text-red">
                 This product cannot be ordered until stock arrives. Choose
                 another pack or remove it from an AI capture.
               </div>
@@ -241,7 +242,7 @@ export function ProductCard({ product }: { product: CatalogueProduct }) {
               </div>
             )}
 
-            <p className="mt-3 text-[0.6875rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 border-t border-line pt-3 text-[0.6875rem] leading-relaxed text-ink-muted">
               Schemes and stock are checked again at checkout. Free cases are
               added automatically, subject to free stock.
             </p>

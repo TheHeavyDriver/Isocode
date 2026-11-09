@@ -16,13 +16,13 @@ export function CreditStrip({
   const low = usedRatio >= 0.8;
 
   return (
-    <div className={cn("card px-3.5 py-3 sm:px-4", className)}>
+    <div className={cn("card px-4 py-3.5", className)}>
       <div className="flex items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Credit available</p>
           <p
             className={cn(
-              "money mt-0.5 text-xl font-bold leading-none",
+              "money font-display mt-1.5 text-[1.45rem] font-medium leading-none",
               low ? "text-amber" : "text-ink",
             )}
           >
@@ -30,12 +30,22 @@ export function CreditStrip({
           </p>
         </div>
         <div className="text-right text-[0.625rem] leading-relaxed text-ink-muted">
-          <p>Limit {formatInr(limitPaisa)}</p>
-          <p>{formatInr(outstandingPaisa)} outstanding</p>
+          <p>
+            Limit{" "}
+            <span className="money font-medium text-ink-soft">
+              {formatInr(limitPaisa)}
+            </span>
+          </p>
+          <p>
+            <span className="money font-medium text-ink-soft">
+              {formatInr(outstandingPaisa)}
+            </span>{" "}
+            outstanding
+          </p>
         </div>
       </div>
       <div
-        className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-paper-deep"
+        className="mt-3 h-1.5 overflow-hidden rounded-full bg-paper-deep"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}

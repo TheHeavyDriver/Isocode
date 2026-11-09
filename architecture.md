@@ -539,7 +539,7 @@ sequenceDiagram
 **Layouts**
 
 - `(auth)` layout: centered, minimal, mobile-first login.
-- `(retailer)` layout: bottom navigation, cart count, warm paper background, large tap targets.
+- `(retailer)` layout: bottom navigation, cart count, cool neutral canvas, large tap targets.
 - `(desk)` layout: desktop-first queue with a detail page; stacks on mobile.
 
 **State**
@@ -551,10 +551,13 @@ sequenceDiagram
 
 **Design system**
 
-- Warm neutral background, ink text, one deep green accent.
-- Amber for low stock, red for out-of-stock, muted grey for disabled.
-- Large price numerals, 44px tap targets, 16px body text, 12–16px radii.
-- CSS-drawn packshots keyed by product, not mismatched stock photos.
+- Visual language adapted from `ui-inspo.html` (Alphaguard): cool `#f2f2f2` canvas, near-black `#0b0306` ink, white surfaces, and celadon `#238365` as the single action accent.
+- Space Grotesk for display headings and prices; Inter for body; Noto Sans Devanagari for Hindi. Loaded and self-hosted through `next/font/google`.
+- 12px cards, 6–8px buttons and fields, 1px hairline borders, minimal shadows, and a `#4d65ff` keyboard focus ring.
+- Dark blueprint-grid hero panels for AI, login, and promotional surfaces.
+- Amber for low stock and credit holds, red for out-of-stock and destructive actions, blue for export/integration notes.
+- Large price numerals, 44px tap targets, 16px body text.
+- CSS-drawn monochrome packshots keyed by product, not mismatched stock photos.
 - No gradients, no generic AI purple, no decorative illustrations without a purpose.
 
 **Implemented screens**

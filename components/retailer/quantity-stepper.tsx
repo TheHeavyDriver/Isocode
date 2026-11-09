@@ -19,7 +19,7 @@ export function QuantityStepper({
   return (
     <div
       className={cn(
-        "flex min-h-11 w-full items-center justify-between overflow-hidden rounded-xl border border-line-strong bg-surface",
+        "flex min-h-11 w-full items-center justify-between overflow-hidden rounded-lg border border-line-strong bg-surface",
         disabled && "opacity-50",
         className,
       )}
@@ -37,8 +37,10 @@ export function QuantityStepper({
         className="flex min-w-0 flex-1 flex-col items-center leading-none"
         aria-live="polite"
       >
-        <span className="money text-base font-bold text-ink">{qty}</span>
-        <span className="mt-0.5 text-[0.5625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+        <span className="money font-display text-base font-medium text-ink">
+          {qty}
+        </span>
+        <span className="mt-0.5 text-[0.5625rem] font-medium uppercase tracking-[0.08em] text-ink-muted">
           {qty === 1 ? label.replace(/s$/, "") : label}
         </span>
       </span>

@@ -13,7 +13,7 @@ export default function ShopLoading() {
         </div>
         <div className="skeleton h-1.5 w-full" />
       </div>
-      <div className="skeleton h-16 w-full rounded-2xl" />
+      <div className="skeleton h-16 w-full rounded-xl" />
       <div className="skeleton h-12 w-full" />
       <div className="flex gap-2">
         {Array.from({ length: 5 }).map((_, index) => (

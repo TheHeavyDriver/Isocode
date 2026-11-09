@@ -12,7 +12,9 @@ export default function DeskError({
   return (
     <div className="card px-6 py-10 text-center">
       <p className="eyebrow">Order desk</p>
-      <h1 className="display mt-2 text-2xl">The desk could not load.</h1>
+      <h1 className="display mt-2 text-[1.8rem] leading-tight">
+        The desk could not load.
+      </h1>
       <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
         Orders and stock are untouched. Retry the page; if the database is
         briefly unavailable, the queue will reappear when it recovers.

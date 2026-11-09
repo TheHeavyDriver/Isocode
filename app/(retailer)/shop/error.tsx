@@ -12,7 +12,9 @@ export default function ShopError({
   return (
     <div className="card px-6 py-10 text-center">
       <p className="eyebrow">Catalogue</p>
-      <h1 className="display mt-2 text-2xl">The shop could not load.</h1>
+      <h1 className="display mt-2 text-[1.8rem] leading-tight">
+        The shop could not load.
+      </h1>
       <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
         This is usually a network or database hiccup. Your cart is safe on this
         phone.

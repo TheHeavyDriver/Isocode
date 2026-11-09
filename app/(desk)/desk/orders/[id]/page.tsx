@@ -62,7 +62,7 @@ export default async function DeskOrderPage({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link
           href="/desk"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink-muted hover:text-ink"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted transition hover:text-ink"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to queue
         </Link>
@@ -77,10 +77,10 @@ export default async function DeskOrderPage({
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="eyebrow">Order</p>
-                <h1 className="money mt-1 text-2xl font-bold tracking-tight">
+                <h1 className="money font-display mt-2 text-[1.9rem] font-medium leading-none tracking-tight">
                   {order.orderNo}
                 </h1>
-                <p className="mt-1 text-xs text-ink-muted">
+                <p className="mt-2 text-xs text-ink-muted">
                   {formatDateIst(order.createdAt)} ·{" "}
                   {ORDER_SOURCE_LABELS[order.source]} · {order.paidCases} paid
                   case{order.paidCases === 1 ? "" : "s"}
@@ -92,7 +92,7 @@ export default async function DeskOrderPage({
                 {order.creditStatus !== "ok" && (
                   <span
                     className={[
-                      "pill font-semibold",
+                      "pill font-medium",
                       order.creditStatus === "approved"
                         ? "bg-green-soft text-green-dark"
                         : order.creditStatus === "rejected"
@@ -109,13 +109,13 @@ export default async function DeskOrderPage({
             <div className="mt-4 grid gap-3 border-t border-line pt-3 sm:grid-cols-3">
               <div>
                 <p className="text-[0.625rem] text-ink-muted">Payable total</p>
-                <p className="money text-2xl font-bold leading-none">
+                <p className="money font-display text-[1.9rem] font-medium leading-none">
                   {formatInr(order.totalPaisa)}
                 </p>
               </div>
               <div>
                 <p className="text-[0.625rem] text-ink-muted">GST included</p>
-                <p className="money mt-0.5 text-sm font-semibold">
+                <p className="money mt-0.5 text-sm font-medium">
                   {formatInr(order.taxPaisa)}
                 </p>
                 <p className="text-[0.625rem] text-ink-muted">
@@ -124,7 +124,7 @@ export default async function DeskOrderPage({
               </div>
               <div>
                 <p className="text-[0.625rem] text-ink-muted">Scheme savings</p>
-                <p className="money mt-0.5 text-sm font-semibold text-green-dark">
+                <p className="money mt-0.5 text-sm font-medium text-green-dark">
                   {formatInr(order.discountPaisa)}
                 </p>
                 <p className="text-[0.625rem] text-ink-muted">
@@ -142,7 +142,7 @@ export default async function DeskOrderPage({
             {order.creditReason && (
               <p
                 className={[
-                  "mt-3 flex items-start gap-1.5 rounded-xl px-3 py-2.5 text-[0.6875rem] leading-relaxed",
+                  "mt-3 flex items-start gap-1.5 rounded-lg px-3 py-2.5 text-[0.6875rem] leading-relaxed",
                   order.creditStatus === "approved"
                     ? "bg-green-soft text-green-dark"
                     : "bg-red-soft text-red",
@@ -153,7 +153,7 @@ export default async function DeskOrderPage({
               </p>
             )}
             {order.notes && (
-              <div className="mt-3 rounded-xl bg-paper/70 px-3 py-2.5">
+              <div className="mt-3 rounded-lg bg-paper/70 px-3 py-2.5">
                 <p className="eyebrow">Note from the retailer</p>
                 <p className="mt-1 text-xs leading-relaxed text-ink-soft">
                   {order.notes}
@@ -164,27 +164,21 @@ export default async function DeskOrderPage({
 
           <section className="card overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-              <h2 className="display text-lg">Lines</h2>
+              <h2 className="display text-lg font-medium">Lines</h2>
               <span className="text-[0.6875rem] text-ink-muted">
                 {order.items.length} line{order.items.length === 1 ? "" : "s"}
               </span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[36rem] text-left text-xs">
-                <thead className="bg-paper/50 text-[0.625rem] uppercase tracking-[0.06em] text-ink-muted">
+                <thead className="bg-paper/50 text-[0.625rem] uppercase tracking-[0.08em] text-ink-muted">
                   <tr>
-                    <th className="px-3 py-2 font-semibold">Product</th>
-                    <th className="px-2 py-2 text-right font-semibold">
-                      Cases
-                    </th>
-                    <th className="px-2 py-2 text-right font-semibold">Rate</th>
-                    <th className="px-2 py-2 text-right font-semibold">
-                      Disc.
-                    </th>
-                    <th className="px-2 py-2 text-right font-semibold">GST</th>
-                    <th className="px-3 py-2 text-right font-semibold">
-                      Total
-                    </th>
+                    <th className="px-3 py-2 font-medium">Product</th>
+                    <th className="px-2 py-2 text-right font-medium">Cases</th>
+                    <th className="px-2 py-2 text-right font-medium">Rate</th>
+                    <th className="px-2 py-2 text-right font-medium">Disc.</th>
+                    <th className="px-2 py-2 text-right font-medium">GST</th>
+                    <th className="px-3 py-2 text-right font-medium">Total</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line">
@@ -194,10 +188,10 @@ export default async function DeskOrderPage({
                       className={item.isFree ? "bg-green-soft/35" : undefined}
                     >
                       <td className="px-3 py-2.5">
-                        <p className="font-semibold text-ink">
+                        <p className="font-medium text-ink">
                           {item.productName}
                           {item.isFree && (
-                            <span className="ml-1.5 inline-flex items-center gap-0.5 rounded-full bg-green-soft px-1.5 py-0.5 text-[0.5625rem] font-bold text-green-dark">
+                            <span className="ml-1.5 inline-flex items-center gap-0.5 rounded-full bg-green-soft px-1.5 py-0.5 text-[0.5625rem] font-medium text-green-dark">
                               <Gift className="h-2.5 w-2.5" /> Free
                             </span>
                           )}
@@ -211,7 +205,7 @@ export default async function DeskOrderPage({
                           </p>
                         )}
                       </td>
-                      <td className="money px-2 py-2.5 text-right font-semibold">
+                      <td className="money px-2 py-2.5 text-right font-medium">
                         {item.qtyCases}
                       </td>
                       <td className="money px-2 py-2.5 text-right text-ink-soft">
@@ -227,7 +221,7 @@ export default async function DeskOrderPage({
                         <br />
                         {formatInr(item.taxPaisa)}
                       </td>
-                      <td className="money px-3 py-2.5 text-right font-bold">
+                      <td className="money px-3 py-2.5 text-right font-medium">
                         {item.isFree ? "₹0.00" : formatInr(item.lineTotalPaisa)}
                       </td>
                     </tr>
@@ -279,10 +273,13 @@ export default async function DeskOrderPage({
                     </td>
                   </tr>
                   <tr className="text-sm">
-                    <td colSpan={5} className="px-3 py-2 text-right font-bold">
+                    <td
+                      colSpan={5}
+                      className="px-3 py-2 text-right font-medium"
+                    >
                       Payable
                     </td>
-                    <td className="money px-3 py-2 text-right font-bold">
+                    <td className="money px-3 py-2 text-right font-medium">
                       {formatInr(order.totalPaisa)}
                     </td>
                   </tr>
@@ -294,8 +291,10 @@ export default async function DeskOrderPage({
           {order.capture && (
             <section className="card overflow-hidden">
               <div className="flex flex-wrap items-center gap-2 border-b border-line px-4 py-3">
-                <Sparkles className="h-4 w-4 text-green" />
-                <h2 className="display text-lg">AI capture check</h2>
+                <Sparkles className="h-4 w-4 text-green" strokeWidth={1.7} />
+                <h2 className="display text-lg font-medium">
+                  AI capture check
+                </h2>
                 <span className="pill bg-paper-deep text-ink-muted">
                   {order.capture.model}
                 </span>
@@ -305,23 +304,21 @@ export default async function DeskOrderPage({
               </div>
               <div className="p-4">
                 <p className="eyebrow">Original message</p>
-                <p className="mt-1 rounded-xl bg-paper/70 px-3 py-2.5 text-xs italic leading-relaxed text-ink-soft">
+                <p className="mt-1 rounded-md bg-paper/70 px-3 py-2.5 text-xs italic leading-relaxed text-ink-soft">
                   “{order.capture.rawText}”
                 </p>
 
                 <div className="mt-3 overflow-x-auto">
                   <table className="w-full min-w-[30rem] text-left text-[0.6875rem]">
-                    <thead className="text-[0.5625rem] uppercase tracking-[0.06em] text-ink-muted">
+                    <thead className="text-[0.5625rem] uppercase tracking-[0.08em] text-ink-muted">
                       <tr>
-                        <th className="py-1.5 pr-2 font-semibold">
-                          Parsed line
-                        </th>
-                        <th className="px-2 py-1.5 font-semibold">Product</th>
-                        <th className="px-2 py-1.5 font-semibold">Qty</th>
-                        <th className="px-2 py-1.5 text-right font-semibold">
+                        <th className="py-1.5 pr-2 font-medium">Parsed line</th>
+                        <th className="px-2 py-1.5 font-medium">Product</th>
+                        <th className="px-2 py-1.5 font-medium">Qty</th>
+                        <th className="px-2 py-1.5 text-right font-medium">
                           Confidence
                         </th>
-                        <th className="px-2 py-1.5 text-right font-semibold">
+                        <th className="px-2 py-1.5 text-right font-medium">
                           Review
                         </th>
                       </tr>
@@ -332,7 +329,7 @@ export default async function DeskOrderPage({
                           <td className="py-2 pr-2 text-ink-soft">
                             “{line.rawText}”
                           </td>
-                          <td className="px-2 py-2 font-semibold">
+                          <td className="px-2 py-2 font-medium">
                             {line.productName ?? "Unmatched"}
                           </td>
                           <td className="px-2 py-2 text-ink-soft">
@@ -363,7 +360,7 @@ export default async function DeskOrderPage({
                     </tbody>
                   </table>
                 </div>
-                <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-green-soft/60 px-2.5 py-2 text-[0.625rem] leading-relaxed text-green-dark">
+                <p className="mt-2 flex items-start gap-1.5 rounded-md bg-green-soft/60 px-2.5 py-2 text-[0.625rem] leading-relaxed text-green-dark">
                   <FileCheck2 className="mt-0.5 h-3 w-3 shrink-0" />
                   AI only suggested catalogue matches. The retailer reviewed
                   every line before the order was created; the desk is seeing
@@ -374,7 +371,7 @@ export default async function DeskOrderPage({
           )}
 
           <section className="card p-4">
-            <h2 className="display text-lg">Activity</h2>
+            <h2 className="display text-lg font-medium">Activity</h2>
             <ul className="mt-2.5 space-y-2">
               {order.audit.length === 0 ? (
                 <li className="text-xs text-ink-muted">
@@ -385,7 +382,7 @@ export default async function DeskOrderPage({
                   <li key={entry.id} className="flex gap-2 text-[0.6875rem]">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green" />
                     <div>
-                      <p className="font-semibold text-ink-soft">
+                      <p className="font-medium text-ink-soft">
                         {auditLabel(entry.action)}
                       </p>
                       <p className="text-ink-muted">
@@ -409,10 +406,10 @@ export default async function DeskOrderPage({
         <aside className="space-y-3 lg:sticky lg:top-28">
           <section className="card p-3.5">
             <div className="flex items-center gap-1.5">
-              <Store className="h-3.5 w-3.5 text-green" />
-              <h2 className="text-xs font-bold">Retailer</h2>
+              <Store className="h-3.5 w-3.5 text-green" strokeWidth={1.7} />
+              <h2 className="text-xs font-medium">Retailer</h2>
             </div>
-            <p className="mt-2 text-sm font-semibold">{order.shopName}</p>
+            <p className="mt-2 text-sm font-medium">{order.shopName}</p>
             <p className="mt-0.5 flex items-center gap-1 text-[0.6875rem] text-ink-soft">
               <UserRound className="h-3 w-3" /> {order.ownerName}
             </p>
@@ -437,8 +434,12 @@ export default async function DeskOrderPage({
           </section>
 
           <section className="card p-3.5">
-            <h2 className="flex items-center gap-1.5 text-xs font-bold">
-              <PackageCheck className="h-3.5 w-3.5 text-green" /> Desk actions
+            <h2 className="flex items-center gap-1.5 text-xs font-medium">
+              <PackageCheck
+                className="h-3.5 w-3.5 text-green"
+                strokeWidth={1.7}
+              />{" "}
+              Desk actions
             </h2>
             <div className="mt-2.5">
               <DeskOrderActions order={order} />
@@ -447,8 +448,9 @@ export default async function DeskOrderPage({
 
           {(order.status === "confirmed" || order.status === "exported") && (
             <section className="card p-3.5">
-              <h2 className="flex items-center gap-1.5 text-xs font-bold">
-                <FileDown className="h-3.5 w-3.5 text-blue" /> Tally export
+              <h2 className="flex items-center gap-1.5 text-xs font-medium">
+                <FileDown className="h-3.5 w-3.5 text-blue" strokeWidth={1.7} />{" "}
+                Tally export
               </h2>
               <div className="mt-2.5">
                 <OrderExportPanel
@@ -461,9 +463,12 @@ export default async function DeskOrderPage({
           )}
 
           <section className="card p-3.5">
-            <h2 className="flex items-center gap-1.5 text-xs font-bold">
-              <MessageSquareText className="h-3.5 w-3.5 text-ink-muted" /> Desk
-              notes
+            <h2 className="flex items-center gap-1.5 text-xs font-medium">
+              <MessageSquareText
+                className="h-3.5 w-3.5 text-ink-muted"
+                strokeWidth={1.7}
+              />{" "}
+              Desk notes
             </h2>
             <p className="mt-1.5 text-[0.6875rem] leading-relaxed text-ink-muted">
               {order.notes

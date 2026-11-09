@@ -8,21 +8,22 @@ export function BrandMark({
   size?: "sm" | "md" | "lg";
 }) {
   const sizes = {
-    sm: "h-8 w-8 text-lg",
-    md: "h-10 w-10 text-2xl",
-    lg: "h-12 w-12 text-3xl",
+    sm: "h-8 w-8 text-base",
+    md: "h-10 w-10 text-xl",
+    lg: "h-12 w-12 text-2xl",
   };
 
   return (
     <span
       aria-hidden="true"
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-xl bg-green text-surface shadow-[inset_0_-2px_0_rgba(0,0,0,0.15)]",
+        "relative inline-flex shrink-0 items-center justify-center rounded-[0.6rem] bg-ink text-surface",
         sizes[size],
         className,
       )}
     >
       <span className="display -mt-0.5 leading-none">स</span>
+      <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-green" />
     </span>
   );
 }
@@ -39,10 +40,10 @@ export function Logo({
       <BrandMark />
       {!compact && (
         <span className="leading-none">
-          <span className="display block text-[1.05rem] font-semibold tracking-tight text-ink">
+          <span className="display block text-[1.05rem] font-medium tracking-[-0.03em] text-ink">
             Sahaj Order
           </span>
-          <span className="mt-1 block text-[0.6875rem] font-medium tracking-[0.08em] text-ink-muted">
+          <span className="mt-1.5 block text-[0.625rem] font-medium tracking-[0.14em] text-ink-muted">
             सहज ऑर्डर
           </span>
         </span>

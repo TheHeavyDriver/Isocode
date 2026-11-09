@@ -11,11 +11,11 @@ export function HeaderCartLink() {
     <Link
       href="/cart"
       aria-label={`Cart, ${cart.count} cases`}
-      className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-surface text-ink-soft transition hover:border-line-strong hover:text-ink"
+      className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-line-strong bg-surface text-ink-soft transition hover:border-ink/20 hover:text-ink"
     >
-      <ShoppingBasket className="h-5 w-5" />
+      <ShoppingBasket className="h-5 w-5" strokeWidth={1.7} />
       {cart.count > 0 && (
-        <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-green px-1 text-[0.625rem] font-bold text-surface">
+        <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-green px-1 text-[0.625rem] font-semibold text-white">
           {cart.count}
         </span>
       )}

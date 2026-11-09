@@ -35,13 +35,13 @@ export function DeskNav() {
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold transition",
+              "inline-flex min-h-9 items-center gap-1.5 rounded-md px-3 text-xs font-medium transition",
               active
-                ? "bg-green-soft text-green-dark"
+                ? "bg-ink text-white"
                 : "text-ink-muted hover:bg-paper hover:text-ink",
             )}
           >
-            <Icon className="h-3.5 w-3.5" />
+            <Icon className="h-3.5 w-3.5" strokeWidth={1.7} />
             {item.label}
           </Link>
         );

@@ -84,10 +84,10 @@ export default async function DeskQueuePage({
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Order desk</p>
-          <h1 className="display mt-1 text-[1.75rem] leading-none sm:text-3xl">
+          <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
             Today&apos;s queue
           </h1>
-          <p className="mt-1.5 text-xs text-ink-soft">
+          <p className="mt-2 text-xs text-ink-soft">
             {needsAction === 0
               ? "Nothing waiting for a desk decision."
               : `${needsAction} order${needsAction === 1 ? "" : "s"} need a decision`}
@@ -148,17 +148,17 @@ export default async function DeskQueuePage({
               href={deskHref({ status: filter.value, q, date })}
               aria-current={active ? "page" : undefined}
               className={[
-                "inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-xs font-semibold transition",
+                "inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-md border px-3.5 text-xs font-medium transition",
                 active
-                  ? "border-green bg-green text-surface"
-                  : "border-line-strong bg-surface text-ink-soft hover:border-ink-muted hover:text-ink",
+                  ? "border-ink bg-ink text-white"
+                  : "border-line-strong bg-surface text-ink-soft hover:border-ink/30 hover:text-ink",
               ].join(" ")}
             >
               {filter.label}
               <span
                 className={[
                   "rounded-full px-1.5 text-[0.625rem]",
-                  active ? "bg-surface/15" : "bg-paper-deep text-ink-muted",
+                  active ? "bg-white/15" : "bg-paper-deep text-ink-muted",
                 ].join(" ")}
               >
                 {count}
@@ -226,10 +226,10 @@ export default async function DeskQueuePage({
 
       {orders.length === 0 ? (
         <div className="card px-6 py-14 text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-paper-deep text-ink-muted">
-            <ClipboardList className="h-7 w-7" />
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-paper-deep text-ink-muted">
+            <ClipboardList className="h-7 w-7" strokeWidth={1.6} />
           </span>
-          <h2 className="display mt-5 text-xl">
+          <h2 className="display mt-5 text-[1.6rem] leading-tight">
             {q
               ? "No order matches that search."
               : status === "all"
@@ -266,7 +266,7 @@ export default async function DeskQueuePage({
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="money text-sm font-bold">
+                      <span className="money font-display text-sm font-medium">
                         {order.orderNo}
                       </span>
                       <OrderStatusPill status={order.status} short />
@@ -277,7 +277,7 @@ export default async function DeskQueuePage({
                         </span>
                       )}
                     </div>
-                    <p className="mt-1 text-xs font-semibold text-ink-soft">
+                    <p className="mt-1 text-xs font-medium text-ink-soft">
                       {order.shopName}{" "}
                       <span className="font-normal text-ink-muted">
                         · {order.ownerName}
@@ -290,7 +290,7 @@ export default async function DeskQueuePage({
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="money text-lg font-bold leading-none">
+                    <p className="money font-display text-lg font-medium leading-none">
                       {formatInrCompact(order.totalPaisa)}
                     </p>
                     <p className="mt-1 text-[0.625rem] text-ink-muted">
@@ -325,12 +325,12 @@ export default async function DeskQueuePage({
                       </span>
                     )}
                     {urgent && (
-                      <span className="flex items-center gap-1 font-semibold text-amber">
+                      <span className="flex items-center gap-1 font-medium text-amber">
                         <CircleAlert className="h-3 w-3" /> Needs a decision
                       </span>
                     )}
                   </span>
-                  <span className="flex items-center gap-1 font-semibold text-green">
+                  <span className="flex items-center gap-1 font-medium text-green">
                     Open order <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
@@ -369,15 +369,15 @@ function StatCard({
       className="card flex items-center gap-2.5 p-3 transition hover:border-line-strong"
     >
       <span
-        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${toneClass}`}
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${toneClass}`}
       >
-        <Icon className="h-4 w-4" />
+        <Icon className="h-4 w-4" strokeWidth={1.7} />
       </span>
       <span>
-        <span className="block text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+        <span className="block text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
           {label}
         </span>
-        <span className="money block text-lg font-bold leading-tight">
+        <span className="money font-display block text-lg font-medium leading-tight">
           {value}
         </span>
       </span>

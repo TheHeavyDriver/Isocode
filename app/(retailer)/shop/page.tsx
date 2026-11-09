@@ -49,17 +49,24 @@ export default async function ShopPage({
 
   return (
     <div className="space-y-4">
-      <section className="flex items-end justify-between gap-3">
+      <section className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Retailer shop</p>
-          <h1 className="display mt-1 text-[1.75rem] leading-none sm:text-3xl">
+          <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
             Namaste, {session.retailer.ownerName.split(" ")[0]}.
           </h1>
-          <p className="mt-1.5 text-xs text-ink-soft">
+          <p className="mt-2 text-xs text-ink-soft">
             {catalogue.total} product{catalogue.total === 1 ? "" : "s"} at your
             price{session.retailer.language === "hi" ? " · आपके दाम पर" : ""}
           </p>
         </div>
+        <span className="hidden items-center gap-1.5 rounded-full border border-line-strong bg-surface px-2.5 py-1 text-[0.625rem] font-medium uppercase tracking-[0.12em] text-ink-muted sm:inline-flex">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-green"
+          />
+          Live stock
+        </span>
       </section>
 
       <CreditStrip
@@ -69,20 +76,29 @@ export default async function ShopPage({
 
       <Link
         href="/ai"
-        className="group flex items-center gap-3 rounded-2xl border border-green/20 bg-green px-4 py-3 text-surface shadow-card transition hover:bg-green-dark"
+        className="group relative flex items-center gap-3.5 overflow-hidden rounded-xl border border-ink bg-ink px-4 py-4 text-white shadow-card transition hover:bg-[#171114]"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface/12">
-          <Sparkles className="h-5 w-5" />
+        <span
+          aria-hidden="true"
+          className="blueprint pointer-events-none absolute inset-0 opacity-60"
+        />
+        <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/[0.06] text-[#7fd0b6]">
+          <Sparkles className="h-5 w-5" strokeWidth={1.7} />
         </span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-sm font-semibold">
+        <span className="relative min-w-0 flex-1">
+          <span className="block text-[0.625rem] font-medium uppercase tracking-[0.16em] text-white/45">
+            AI order capture
+          </span>
+          <span className="mt-1 block text-sm font-medium">
             Have a WhatsApp order?
           </span>
-          <span className="block text-[0.6875rem] leading-relaxed text-surface/65">
+          <span className="mt-0.5 block text-[0.6875rem] leading-relaxed text-white/50">
             Paste it in Hindi or English · AI suggests lines · you confirm
           </span>
         </span>
-        <ArrowRight className="h-4 w-4 shrink-0 text-surface/70 transition group-hover:translate-x-0.5" />
+        <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-[#7fd0b6] transition group-hover:border-[#7fd0b6]/50">
+          <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+        </span>
       </Link>
 
       <section aria-label="Search and filters" className="space-y-3">
@@ -109,14 +125,14 @@ export default async function ShopPage({
             <Link
               href={shopHref({ ...filters, q: undefined })}
               aria-label="Clear search"
-              className="absolute right-[4.6rem] top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-ink-muted hover:bg-paper hover:text-ink"
+              className="absolute right-[4.6rem] top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-ink-muted transition hover:bg-paper hover:text-ink"
             >
               <X className="h-4 w-4" />
             </Link>
           )}
           <button
             type="submit"
-            className="btn btn-primary absolute right-1.5 top-1/2 h-9 min-h-9 -translate-y-1/2 rounded-lg px-3 text-xs"
+            className="btn btn-primary absolute right-1.5 top-1/2 h-9 min-h-9 -translate-y-1/2 rounded-md px-3 text-xs"
           >
             Search
           </button>
@@ -161,7 +177,7 @@ export default async function ShopPage({
         </div>
       </section>
 
-      <div className="flex items-center justify-between gap-3 pt-1">
+      <div className="flex items-center justify-between gap-3 border-t border-line pt-3">
         <p className="text-xs text-ink-muted">
           {hasFilters ? (
             <>
@@ -177,7 +193,7 @@ export default async function ShopPage({
         {hasFilters && (
           <Link
             href="/shop"
-            className="shrink-0 text-xs font-semibold text-green underline decoration-green/25 underline-offset-4"
+            className="shrink-0 text-xs font-medium text-green underline decoration-green/25 underline-offset-4"
           >
             Clear all
           </Link>
@@ -186,10 +202,12 @@ export default async function ShopPage({
 
       {catalogue.products.length === 0 ? (
         <div className="card px-6 py-12 text-center">
-          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-paper-deep text-ink-muted">
-            <Search className="h-6 w-6" />
+          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-paper-deep text-ink-muted">
+            <Search className="h-6 w-6" strokeWidth={1.7} />
           </span>
-          <h2 className="display mt-4 text-xl">No products match.</h2>
+          <h2 className="display mt-4 text-[1.6rem] leading-tight">
+            No products match.
+          </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
             Try the Hindi name for a product, a shorter word, or clear the
             filters. For example, “चाय पत्ती” finds tea.
@@ -199,14 +217,14 @@ export default async function ShopPage({
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4">
           {catalogue.products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       )}
 
-      <p className="pt-3 text-center text-[0.625rem] leading-relaxed text-ink-muted">
+      <p className="mx-auto max-w-2xl border-t border-line pt-4 text-center text-[0.625rem] leading-relaxed text-ink-muted">
         Prices include GST unless marked otherwise. Schemes are applied on the
         paid quantity and capped by free stock. The server rechecks everything
         at checkout.
@@ -231,11 +249,11 @@ function FilterChip({
       href={href}
       aria-current={active ? "page" : undefined}
       className={[
-        "inline-flex shrink-0 items-center justify-center rounded-full border font-semibold transition",
+        "inline-flex shrink-0 items-center justify-center rounded-md border font-medium transition",
         small ? "min-h-8 px-3 text-[0.6875rem]" : "min-h-9 px-3.5 text-xs",
         active
-          ? "border-green bg-green text-surface"
-          : "border-line-strong bg-surface text-ink-soft hover:border-ink-muted hover:text-ink",
+          ? "border-ink bg-ink text-white"
+          : "border-line-strong bg-surface text-ink-soft hover:border-ink/30 hover:text-ink",
       ].join(" ")}
     >
       {children}

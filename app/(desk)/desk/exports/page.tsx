@@ -28,7 +28,7 @@ export default async function DeskExportsPage() {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link
           href="/desk"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink-muted hover:text-ink"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted transition hover:text-ink"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to queue
         </Link>
@@ -39,10 +39,10 @@ export default async function DeskExportsPage() {
 
       <header>
         <p className="eyebrow">Tally desk</p>
-        <h1 className="display mt-1 text-[1.75rem] leading-none sm:text-3xl">
+        <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
           Export log
         </h1>
-        <p className="mt-1.5 max-w-2xl text-xs leading-relaxed text-ink-soft">
+        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-ink-soft">
           Every confirmed order leaves the app once, as a Tally Prime XML file
           or a CSV fallback. The checksum, creator, and order numbers are stored
           so a second export of the same order is refused.
@@ -51,26 +51,26 @@ export default async function DeskExportsPage() {
 
       <section className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         <div className="card p-3">
-          <p className="text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+          <p className="text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
             Exports
           </p>
-          <p className="money mt-1 text-2xl font-bold leading-none">
+          <p className="money font-display mt-1.5 text-2xl font-medium leading-none">
             {records.length}
           </p>
         </div>
         <div className="card p-3">
-          <p className="text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+          <p className="text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
             Orders sent
           </p>
-          <p className="money mt-1 text-2xl font-bold leading-none">
+          <p className="money font-display mt-1.5 text-2xl font-medium leading-none">
             {totalOrders}
           </p>
         </div>
         <div className="card col-span-2 p-3 sm:col-span-1">
-          <p className="flex items-center gap-1 text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
-            <ShieldCheck className="h-3 w-3" /> Integrity
+          <p className="flex items-center gap-1 text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
+            <ShieldCheck className="h-3 w-3" strokeWidth={1.7} /> Integrity
           </p>
-          <p className="mt-1 text-xs font-semibold text-green-dark">
+          <p className="mt-1.5 text-xs font-medium text-green-dark">
             SHA-256 checksums stored
           </p>
         </div>
@@ -78,10 +78,12 @@ export default async function DeskExportsPage() {
 
       {records.length === 0 ? (
         <div className="card px-6 py-14 text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-paper-deep text-ink-muted">
-            <FileText className="h-7 w-7" />
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-paper-deep text-ink-muted">
+            <FileText className="h-7 w-7" strokeWidth={1.6} />
           </span>
-          <h2 className="display mt-5 text-xl">No exports yet.</h2>
+          <h2 className="display mt-5 text-[1.6rem] leading-tight">
+            No exports yet.
+          </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
             Open a confirmed order and create a Tally file. The export appears
             here with its download link and checksum.
@@ -98,7 +100,7 @@ export default async function DeskExportsPage() {
                 <div className="flex min-w-0 items-start gap-2.5">
                   <span
                     className={[
-                      "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
+                      "flex h-9 w-9 shrink-0 items-center justify-center rounded-md",
                       record.format === "tally_xml"
                         ? "bg-blue-soft text-blue"
                         : "bg-green-soft text-green-dark",
@@ -111,7 +113,7 @@ export default async function DeskExportsPage() {
                     )}
                   </span>
                   <div className="min-w-0">
-                    <h2 className="break-all text-xs font-bold text-ink">
+                    <h2 className="break-all text-xs font-medium text-ink">
                       {record.fileName}
                     </h2>
                     <p className="mt-0.5 text-[0.625rem] text-ink-muted">
@@ -146,7 +148,7 @@ export default async function DeskExportsPage() {
       )}
 
       <div className="card border-blue/15 bg-blue-soft/50 p-4">
-        <h2 className="text-xs font-bold text-blue">
+        <h2 className="text-xs font-medium text-blue">
           Tally import assumptions
         </h2>
         <ul className="mt-1.5 list-disc space-y-1 pl-4 text-[0.6875rem] leading-relaxed text-blue/85">

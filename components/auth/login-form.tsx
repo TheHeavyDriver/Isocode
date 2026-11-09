@@ -143,45 +143,52 @@ export function LoginForm() {
       <div className="mb-8 flex items-center gap-3 lg:hidden">
         <BrandMark />
         <div>
-          <p className="display text-lg font-semibold leading-none">
+          <p className="display text-lg font-medium leading-none">
             Sahaj Order
           </p>
-          <p className="mt-1 text-xs tracking-[0.08em] text-ink-muted">
+          <p className="mt-1.5 text-[0.625rem] uppercase tracking-[0.14em] text-ink-muted">
             सहज ऑर्डर
           </p>
         </div>
       </div>
 
       <div className="card overflow-hidden">
-        <div className="border-b border-line bg-paper/60 px-5 py-3 sm:px-7">
+        <div className="flex items-center justify-between border-b border-line px-5 py-3.5 sm:px-7">
           <p className="eyebrow">Retailer &amp; order desk</p>
+          <span className="flex items-center gap-1.5 text-[0.5625rem] font-medium uppercase tracking-[0.12em] text-ink-muted">
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-green"
+            />
+            OTP access
+          </span>
         </div>
 
-        <div className="px-5 py-6 sm:px-7 sm:py-7">
+        <div className="px-5 py-6 sm:px-7 sm:py-8">
           {step === "phone" ? (
             <>
-              <h1 className="display text-[1.75rem] leading-tight sm:text-3xl">
+              <h1 className="display text-[1.9rem] leading-[1.06] sm:text-[2.25rem]">
                 Start your order
               </h1>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
                 Sign in with the mobile number registered with the distributor.
                 No password needed.
               </p>
 
-              <div className="mt-5 rounded-xl border border-line bg-paper/55 p-2.5">
-                <p className="px-1 pb-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">
+              <div className="mt-6 rounded-lg border border-line bg-paper/70 p-2.5">
+                <p className="px-1 pb-2 text-[0.625rem] font-medium uppercase tracking-[0.12em] text-ink-muted">
                   Demo accounts
                 </p>
-                <div className="grid gap-1">
+                <div className="grid gap-0.5">
                   {demoAccounts.map((account) => (
                     <button
                       key={account.phone}
                       type="button"
                       onClick={() => pickDemo(account.phone)}
-                      className="flex min-h-11 items-center justify-between gap-3 rounded-lg px-2.5 text-left transition hover:bg-surface focus-visible:bg-surface"
+                      className="flex min-h-11 items-center justify-between gap-3 rounded-md px-2.5 text-left transition hover:bg-surface focus-visible:bg-surface"
                     >
                       <span>
-                        <span className="block text-sm font-semibold text-ink">
+                        <span className="block text-sm font-medium text-ink">
                           {account.label}
                         </span>
                         <span className="block text-xs text-ink-muted">
@@ -197,7 +204,7 @@ export function LoginForm() {
               </div>
 
               <form
-                className="mt-5"
+                className="mt-6"
                 onSubmit={(event) => {
                   event.preventDefault();
                   void requestCode();
@@ -206,8 +213,8 @@ export function LoginForm() {
                 <label className="label" htmlFor="phone">
                   Mobile number
                 </label>
-                <div className="flex items-stretch gap-2">
-                  <span className="flex min-h-11 items-center rounded-xl border border-line-strong bg-paper px-3 text-sm font-semibold text-ink-soft">
+                <div className="flex items-stretch">
+                  <span className="flex min-h-11 items-center rounded-l-lg border border-r-0 border-line-strong bg-paper px-3 text-sm font-medium text-ink-soft">
                     +91
                   </span>
                   <input
@@ -225,7 +232,7 @@ export function LoginForm() {
                       )
                     }
                     placeholder="90000 00001"
-                    className="field tracking-[0.04em]"
+                    className="field rounded-l-none tracking-[0.04em]"
                     aria-describedby="phone-help"
                     aria-invalid={Boolean(error)}
                   />
@@ -237,7 +244,7 @@ export function LoginForm() {
                 {error && (
                   <p
                     role="alert"
-                    className="mt-3 rounded-lg border border-red-200 bg-red-soft px-3 py-2 text-sm text-red"
+                    className="mt-3 rounded-md border border-red/20 bg-red-soft px-3 py-2 text-sm text-red"
                   >
                     {error}
                   </p>
@@ -246,7 +253,7 @@ export function LoginForm() {
                 <button
                   type="submit"
                   disabled={busy || !normalized}
-                  className="btn btn-primary mt-4 w-full"
+                  className="btn btn-primary mt-5 w-full"
                 >
                   {busy ? (
                     <>
@@ -269,24 +276,24 @@ export function LoginForm() {
                   setError(null);
                   setNotice(null);
                 }}
-                className="mb-4 inline-flex min-h-9 items-center text-xs font-semibold text-ink-soft underline decoration-line-strong underline-offset-4 hover:text-ink"
+                className="mb-5 inline-flex min-h-9 items-center gap-1 text-xs font-medium text-ink-muted transition hover:text-ink"
               >
                 ← Change number
               </button>
 
-              <h1 className="display text-[1.75rem] leading-tight sm:text-3xl">
+              <h1 className="display text-[1.9rem] leading-[1.06] sm:text-[2.25rem]">
                 Enter the code
               </h1>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
                 Sent to{" "}
-                <span className="font-semibold text-ink">
+                <span className="font-medium text-ink">
                   {normalized ? maskPhone(normalized) : "your number"}
                 </span>
                 . It works once and expires in 5 minutes.
               </p>
 
               <form
-                className="mt-5"
+                className="mt-6"
                 onSubmit={(event) => {
                   event.preventDefault();
                   void verifyCode();
@@ -309,7 +316,7 @@ export function LoginForm() {
                     setCode(event.target.value.replace(/\D/g, "").slice(0, 6))
                   }
                   placeholder="••••••"
-                  className="field h-14 text-center font-mono text-2xl tracking-[0.45em]"
+                  className="field h-16 text-center font-mono text-2xl tracking-[0.45em]"
                   aria-describedby="code-help"
                   aria-invalid={Boolean(error)}
                 />
@@ -317,10 +324,10 @@ export function LoginForm() {
                 {demoOtpEnabled && (
                   <p
                     id="code-help"
-                    className="mt-2 rounded-lg bg-green-soft px-3 py-2 text-xs font-medium text-green-dark"
+                    className="mt-2.5 rounded-md border border-green/15 bg-green-soft px-3 py-2 text-xs font-medium text-green-dark"
                   >
                     Demo build: the code for seeded numbers is{" "}
-                    <span className="font-mono font-bold">123456</span>.
+                    <span className="font-mono font-semibold">123456</span>.
                   </p>
                 )}
 
@@ -333,7 +340,7 @@ export function LoginForm() {
                 {error && (
                   <p
                     role="alert"
-                    className="mt-3 rounded-lg border border-red-200 bg-red-soft px-3 py-2 text-sm text-red"
+                    className="mt-3 rounded-md border border-red/20 bg-red-soft px-3 py-2 text-sm text-red"
                   >
                     {error}
                   </p>
@@ -342,7 +349,7 @@ export function LoginForm() {
                 <button
                   type="submit"
                   disabled={busy || code.length !== 6}
-                  className="btn btn-primary mt-4 w-full"
+                  className="btn btn-primary mt-5 w-full"
                 >
                   {busy ? (
                     <>
@@ -355,7 +362,7 @@ export function LoginForm() {
                   )}
                 </button>
 
-                <div className="mt-4 flex items-center justify-between gap-3 text-xs">
+                <div className="mt-4 flex items-center justify-between gap-3 rounded-md border border-line bg-paper/60 px-3 py-1.5 text-xs">
                   <span className="text-ink-muted">
                     {resendIn > 0
                       ? `Resend in 0:${String(resendIn).padStart(2, "0")}`
@@ -365,7 +372,7 @@ export function LoginForm() {
                     type="button"
                     disabled={resendIn > 0 || busy}
                     onClick={() => void requestCode()}
-                    className="min-h-9 font-semibold text-green underline decoration-green/30 underline-offset-4 disabled:text-ink-muted disabled:no-underline"
+                    className="min-h-9 font-medium text-green transition hover:text-green-dark disabled:text-ink-muted"
                   >
                     Resend code
                   </button>

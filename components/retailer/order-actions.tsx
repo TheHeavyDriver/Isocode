@@ -77,8 +77,8 @@ export function RetailerOrderActions({ order }: { order: OrderDetail }) {
       </div>
 
       {confirming && (
-        <div className="rounded-xl border border-red/20 bg-red-soft p-3.5">
-          <p className="text-sm font-semibold text-red">
+        <div className="rounded-lg border border-red/20 bg-red-soft p-3.5">
+          <p className="text-sm font-medium text-red">
             Cancel {order.orderNo}?
           </p>
           <p className="mt-1 text-xs leading-relaxed text-red/80">

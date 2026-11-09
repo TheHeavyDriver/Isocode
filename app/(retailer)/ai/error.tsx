@@ -13,7 +13,9 @@ export default function AiOrderError({
   return (
     <div className="card px-6 py-10 text-center">
       <p className="eyebrow">AI order capture</p>
-      <h1 className="display mt-2 text-2xl">The AI desk could not load.</h1>
+      <h1 className="display mt-2 text-[1.8rem] leading-tight">
+        The AI desk could not load.
+      </h1>
       <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
         Your cart is safe. Retry the page, or order from the catalogue while the
         AI service recovers.

@@ -12,3 +12,7 @@ c.md
 d.md
 e.md
 brief.md
+
+# Local design reference and browser-automation output.
+ui-inspo.html
+.playwright-cli/

@@ -245,10 +245,10 @@ export function AiCaptureReview({
     <div className="space-y-4">
       <header>
         <p className="eyebrow">AI order capture</p>
-        <h1 className="display mt-1 text-[1.75rem] leading-none sm:text-3xl">
+        <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
           Paste the WhatsApp order.
         </h1>
-        <p className="mt-1.5 max-w-xl text-xs leading-relaxed text-ink-soft">
+        <p className="mt-2 max-w-xl text-xs leading-relaxed text-ink-soft">
           {language === "hi"
             ? "हिंदी, English या मिली-जुली भाषा में लिखें। AI सिर्फ सुझाव देगा — हर लाइन आपकी मंज़ूरी के बाद ही कार्ट में जाएगी।"
             : "Hindi, English, or a mix of both. AI only suggests lines; nothing reaches your cart or the desk until you review and confirm it."}
@@ -256,9 +256,9 @@ export function AiCaptureReview({
       </header>
 
       <section className="card overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-line bg-paper/50 px-4 py-3">
-          <MessageSquareText className="h-4 w-4 text-green" />
-          <h2 className="text-sm font-bold">Order message</h2>
+        <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+          <MessageSquareText className="h-4 w-4 text-green" strokeWidth={1.7} />
+          <h2 className="text-sm font-medium">Order message</h2>
           <span className="pill ml-auto bg-surface text-ink-muted">
             {text.length}/2000
           </span>
@@ -290,7 +290,7 @@ export function AiCaptureReview({
                   setText(sample.text);
                   setError(null);
                 }}
-                className="rounded-full border border-line-strong bg-surface px-2.5 py-1 text-[0.625rem] font-semibold text-ink-soft transition hover:border-green hover:text-green"
+                className="rounded-md border border-line-strong bg-surface px-2.5 py-1 text-[0.625rem] font-medium text-ink-soft transition hover:border-ink/30 hover:text-ink"
               >
                 {sample.label}
               </button>
@@ -300,11 +300,11 @@ export function AiCaptureReview({
           {error && (
             <div
               role="alert"
-              className="mt-3 flex items-start gap-2 rounded-xl border border-red/20 bg-red-soft px-3 py-2.5 text-xs leading-relaxed text-red"
+              className="mt-3 flex items-start gap-2 rounded-lg border border-red/20 bg-red-soft px-3 py-2.5 text-xs leading-relaxed text-red"
             >
               <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
               <div>
-                <p className="font-semibold">We could not read that order.</p>
+                <p className="font-medium">We could not read that order.</p>
                 <p className="mt-0.5">{error}</p>
                 <p className="mt-1 text-red/75">
                   You can try again, or{" "}
@@ -344,8 +344,8 @@ export function AiCaptureReview({
       {submitting && (
         <section className="card space-y-3 p-4" aria-busy="true">
           <div className="skeleton h-3 w-32" />
-          <div className="skeleton h-16 w-full rounded-xl" />
-          <div className="skeleton h-20 w-full rounded-xl" />
+          <div className="skeleton h-16 w-full rounded-lg" />
+          <div className="skeleton h-20 w-full rounded-lg" />
           <p className="text-center text-xs text-ink-muted">
             Reading the message and matching products…
           </p>
@@ -354,10 +354,10 @@ export function AiCaptureReview({
 
       {capture && !submitting && (
         <section className="card overflow-hidden">
-          <div className="border-b border-line bg-paper/50 px-4 py-3">
+          <div className="border-b border-line px-4 py-3">
             <div className="flex flex-wrap items-center gap-2">
-              <Sparkles className="h-4 w-4 text-green" />
-              <h2 className="text-sm font-bold">Review before ordering</h2>
+              <Sparkles className="h-4 w-4 text-green" strokeWidth={1.7} />
+              <h2 className="text-sm font-medium">Review before ordering</h2>
               <span className="pill bg-paper-deep text-ink-muted">
                 {capture.model}
               </span>
@@ -381,9 +381,12 @@ export function AiCaptureReview({
 
           <div className="space-y-3 p-4">
             {capture.lines.length === 0 ? (
-              <div className="rounded-xl border border-amber/20 bg-amber-soft px-3.5 py-4 text-center">
-                <CircleHelp className="mx-auto h-6 w-6 text-amber" />
-                <p className="mt-2 text-sm font-semibold text-amber">
+              <div className="rounded-lg border border-amber/20 bg-amber-soft px-3.5 py-4 text-center">
+                <CircleHelp
+                  className="mx-auto h-6 w-6 text-amber"
+                  strokeWidth={1.7}
+                />
+                <p className="mt-2 text-sm font-medium text-amber">
                   No product lines found.
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-amber/80">
@@ -458,8 +461,8 @@ export function AiCaptureReview({
 
       <section className="card overflow-hidden">
         <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-          <History className="h-4 w-4 text-ink-muted" />
-          <h2 className="text-sm font-bold">Recent captures</h2>
+          <History className="h-4 w-4 text-ink-muted" strokeWidth={1.7} />
+          <h2 className="text-sm font-medium">Recent captures</h2>
           <span className="pill ml-auto bg-paper-deep text-ink-muted">
             {captures.length}
           </span>
@@ -473,9 +476,12 @@ export function AiCaptureReview({
           </p>
         )}
         {captures.length === 0 ? (
-          <div className="px-4 py-8 text-center">
-            <PackageSearch className="mx-auto h-7 w-7 text-ink-muted" />
-            <p className="mt-2 text-sm font-semibold">No captures yet.</p>
+          <div className="px-4 py-10 text-center">
+            <PackageSearch
+              className="mx-auto h-7 w-7 text-ink-muted"
+              strokeWidth={1.6}
+            />
+            <p className="mt-2 text-sm font-medium">No captures yet.</p>
             <p className="mt-1 text-xs text-ink-muted">
               Paste a message above to start your first AI order.
             </p>
@@ -490,7 +496,7 @@ export function AiCaptureReview({
                   disabled={readingHistory !== null}
                   className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-paper/60"
                 >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper-deep text-ink-muted">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-line bg-paper text-ink-muted">
                     {readingHistory === item.id ? (
                       <LoaderCircle className="h-4 w-4 animate-spin" />
                     ) : (
@@ -498,7 +504,7 @@ export function AiCaptureReview({
                     )}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="line-clamp-1 block text-xs font-semibold text-ink">
+                    <span className="line-clamp-1 block text-xs font-medium text-ink">
                       {item.rawText}
                     </span>
                     <span className="mt-0.5 block text-[0.625rem] text-ink-muted">
@@ -524,7 +530,7 @@ export function AiCaptureReview({
 
       <Link
         href="/shop"
-        className="flex items-center justify-center gap-1 text-xs font-semibold text-green"
+        className="flex items-center justify-center gap-1 text-xs font-medium text-green"
       >
         Order from the catalogue instead <ArrowRight className="h-3.5 w-3.5" />
       </Link>
@@ -555,14 +561,14 @@ function CaptureLineEditor({
 
   if (draft.remove) {
     return (
-      <div className="flex items-center justify-between gap-3 rounded-xl border border-line bg-paper/50 px-3 py-2.5">
+      <div className="flex items-center justify-between gap-3 rounded-lg border border-line bg-paper/50 px-3 py-2.5">
         <p className="min-w-0 truncate text-xs text-ink-muted line-through">
           {line.rawText}
         </p>
         <button
           type="button"
           onClick={() => onChange({ remove: false })}
-          className="shrink-0 text-[0.6875rem] font-semibold text-green underline underline-offset-2"
+          className="shrink-0 text-[0.6875rem] font-medium text-green underline underline-offset-2"
         >
           Keep line
         </button>
@@ -571,10 +577,10 @@ function CaptureLineEditor({
   }
 
   return (
-    <article className="rounded-xl border border-line bg-surface p-3.5">
+    <article className="rounded-lg border border-line bg-surface p-3.5 shadow-[0_1px_2px_rgba(11,3,6,0.03)]">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+          <p className="text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
             Line {line.lineNo} · “{line.rawText}”
           </p>
           <p className="mt-0.5 text-[0.625rem] text-ink-muted">
@@ -597,7 +603,7 @@ function CaptureLineEditor({
           <button
             type="button"
             onClick={() => onChange({ remove: true })}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-ink-muted transition hover:bg-red-soft hover:text-red"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-ink-muted transition hover:bg-red-soft hover:text-red"
             aria-label={`Remove line ${line.lineNo}`}
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -606,7 +612,7 @@ function CaptureLineEditor({
       </div>
 
       {line.needsClarification && (
-        <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-amber-soft px-2.5 py-1.5 text-[0.6875rem] leading-relaxed text-amber">
+        <p className="mt-2 flex items-start gap-1.5 rounded-md bg-amber-soft px-2.5 py-1.5 text-[0.6875rem] leading-relaxed text-amber">
           <CircleHelp className="mt-0.5 h-3 w-3 shrink-0" />
           {line.unit === "piece"
             ? "The message says pieces. Choose how many cases to order."
@@ -681,7 +687,7 @@ function CaptureLineEditor({
 
       {line.alternatives.length > 0 && (
         <div className="mt-2">
-          <p className="text-[0.625rem] font-semibold text-ink-muted">
+          <p className="text-[0.625rem] font-medium text-ink-muted">
             Other close matches
           </p>
           <div className="mt-1 flex flex-wrap gap-1.5">
@@ -693,10 +699,10 @@ function CaptureLineEditor({
                   onChange({ productId: alternative.productId, unit: "case" })
                 }
                 className={[
-                  "rounded-full border px-2 py-1 text-[0.625rem] font-medium transition",
+                  "rounded-md border px-2 py-1 text-[0.625rem] font-medium transition",
                   draft.productId === alternative.productId
-                    ? "border-green bg-green-soft text-green-dark"
-                    : "border-line-strong bg-surface text-ink-soft hover:border-green hover:text-green",
+                    ? "border-ink bg-ink text-white"
+                    : "border-line-strong bg-surface text-ink-soft hover:border-ink/30 hover:text-ink",
                 ].join(" ")}
               >
                 {alternative.productName ?? "Unknown product"} ·{" "}

@@ -12,86 +12,96 @@ export default async function LoginPage() {
   if (session) redirect(homeForRole(session.user.role));
 
   return (
-    <main className="grid min-h-dvh lg:grid-cols-[1.05fr_0.95fr]">
-      <section className="relative hidden overflow-hidden bg-green px-12 py-10 text-surface lg:flex lg:flex-col lg:justify-between xl:px-16">
+    <main className="grid min-h-dvh lg:grid-cols-[1.08fr_0.92fr]">
+      <section className="relative hidden overflow-hidden bg-ink px-12 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-16">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.09]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(to bottom, transparent 0 47px, #fffdf7 47px 48px)",
-          }}
+          className="blueprint pointer-events-none absolute inset-0 opacity-70"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full border border-surface/15"
+          className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full border border-white/10"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-12 top-36 h-72 w-72 rounded-full border border-surface/10"
+          className="pointer-events-none absolute -right-24 top-24 h-[26rem] w-[26rem] rounded-full border border-green/25"
         />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-48 right-1/3 h-96 w-96 rotate-45 border border-white/[0.06]"
+        />
+        <span
+          aria-hidden="true"
+          className="display pointer-events-none absolute -bottom-24 right-2 select-none text-[22rem] leading-none text-white/[0.025]"
+        >
+          स
+        </span>
 
-        <div className="relative z-10">
-          <div className="flex items-center gap-3">
-            <BrandMark className="bg-surface text-green" />
-            <div>
-              <p className="display text-lg font-semibold leading-none">
-                Sahaj Order
-              </p>
-              <p className="mt-1 text-xs tracking-[0.1em] text-surface/60">
-                सहज ऑर्डर
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-16 max-w-lg xl:mt-24">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface/55">
-              For the distributor&apos;s shopkeepers
+        <div className="relative z-10 flex items-center gap-3">
+          <BrandMark className="bg-white text-ink" />
+          <div>
+            <p className="display text-lg font-medium leading-none">
+              Sahaj Order
             </p>
-            <h1 className="display mt-4 text-[2.9rem] leading-[1.06] tracking-tight xl:text-[3.4rem]">
-              The order is ready
-              <br />
-              before the customer
-              <br />
-              leaves the counter.
-            </h1>
-            <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-surface/70">
-              Live stock, your own price, and the current scheme. Build the
-              order in a minute and send it straight to the desk.
+            <p className="mt-1.5 text-[0.625rem] uppercase tracking-[0.16em] text-white/40">
+              सहज ऑर्डर
             </p>
           </div>
+          <span className="ml-auto rounded-full border border-white/15 px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.14em] text-white/45">
+            B2B ordering
+          </span>
+        </div>
+
+        <div className="relative z-10 mt-16 max-w-xl xl:mt-24">
+          <p className="flex items-center gap-2 text-[0.625rem] font-medium uppercase tracking-[0.18em] text-white/45">
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-green"
+            />
+            For the distributor&apos;s shopkeepers
+          </p>
+          <h1 className="display mt-5 text-[3rem] leading-[1.04] tracking-[-0.035em] xl:text-[3.8rem]">
+            The order is ready{" "}
+            <span className="text-[#7fd0b6]">
+              before the customer leaves the counter.
+            </span>
+          </h1>
+          <p className="mt-6 max-w-md text-[0.95rem] leading-relaxed text-white/55">
+            Live stock, your own price, and the current scheme. Build the order
+            in a minute and send it straight to the desk.
+          </p>
         </div>
 
         <div className="relative z-10 mt-14 max-w-md">
-          <div className="rounded-2xl border border-surface/15 bg-green-dark/80 p-5 shadow-2xl backdrop-blur-sm">
-            <div className="flex items-center justify-between text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-surface/55">
+          <div className="rounded-xl border border-white/10 bg-white/[0.035] p-5 backdrop-blur-sm">
+            <div className="flex items-center justify-between text-[0.625rem] font-medium uppercase tracking-[0.14em] text-white/40">
               <span>Order 0042</span>
-              <span className="rounded-full bg-surface/10 px-2 py-1 text-surface/75">
+              <span className="rounded-full border border-green/30 bg-green/10 px-2 py-1 text-[0.625rem] text-[#7fd0b6]">
                 AI captured
               </span>
             </div>
-            <div className="mt-4 space-y-3 text-sm">
+            <div className="mt-5 space-y-3 text-sm">
               <div className="flex items-baseline justify-between gap-4">
-                <span className="text-surface/80">
+                <span className="text-white/65">
                   Glucose biscuit · 10 cases
                 </span>
-                <span className="money text-surface">₹7,776.00</span>
+                <span className="money text-white">₹7,776.00</span>
               </div>
               <div className="flex items-baseline justify-between gap-4">
-                <span className="text-surface/80">
-                  Detergent 1 kg · 5 cases
-                </span>
-                <span className="money text-surface">₹9,603.00</span>
+                <span className="text-white/65">Detergent 1 kg · 5 cases</span>
+                <span className="money text-white">₹9,603.00</span>
               </div>
-              <div className="flex items-baseline justify-between gap-4 border-t border-surface/15 pt-3">
-                <span className="font-medium text-surface/90">
+              <div className="flex items-baseline justify-between gap-4 border-t border-white/10 pt-3">
+                <span className="font-medium text-[#7fd0b6]">
                   1 free biscuit case
                 </span>
-                <span className="text-xs text-surface/55">Scheme applied</span>
+                <span className="text-[0.625rem] uppercase tracking-[0.1em] text-white/35">
+                  Scheme applied
+                </span>
               </div>
             </div>
           </div>
-          <div className="mt-6 flex gap-6 text-[0.6875rem] text-surface/45">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[0.625rem] uppercase tracking-[0.14em] text-white/30">
             <span>33 seeded SKUs</span>
             <span>Live stock</span>
             <span>One shared order record</span>
@@ -99,8 +109,14 @@ export default async function LoginPage() {
         </div>
       </section>
 
-      <section className="flex min-h-dvh items-center justify-center px-4 py-10 sm:px-8 lg:min-h-0">
-        <LoginForm />
+      <section className="relative flex min-h-dvh items-center justify-center px-4 py-10 sm:px-8 lg:min-h-0">
+        <div
+          aria-hidden="true"
+          className="blueprint-dark pointer-events-none absolute inset-0 opacity-50 lg:hidden"
+        />
+        <div className="relative w-full">
+          <LoginForm />
+        </div>
       </section>
     </main>
   );

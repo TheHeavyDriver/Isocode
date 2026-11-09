@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Order stock at your price, see live schemes, and send the order to the desk in a minute.",
     start_url: "/shop",
     display: "standalone",
-    background_color: "#f6f1e6",
-    theme_color: "#175c3d",
+    background_color: "#f2f2f2",
+    theme_color: "#0b0306",
     orientation: "portrait",
     icons: [
       {

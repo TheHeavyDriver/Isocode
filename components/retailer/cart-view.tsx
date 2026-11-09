@@ -184,10 +184,12 @@ export function CartView({ retailer }: CartViewProps) {
   if (cart.lines.length === 0) {
     return (
       <div className="card animate-rise px-6 py-14 text-center">
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-paper-deep text-ink-muted">
-          <ShoppingBasket className="h-7 w-7" />
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-paper-deep text-ink-muted">
+          <ShoppingBasket className="h-7 w-7" strokeWidth={1.6} />
         </span>
-        <h1 className="display mt-5 text-2xl">Your cart is empty.</h1>
+        <h1 className="display mt-5 text-[1.9rem] leading-tight">
+          Your cart is empty.
+        </h1>
         <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
           Add cases from the shop, or paste a WhatsApp order and let AI suggest
           the lines.
@@ -210,9 +212,11 @@ export function CartView({ retailer }: CartViewProps) {
     return (
       <div className="card px-6 py-12 text-center">
         <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-soft text-red">
-          <AlertTriangle className="h-6 w-6" />
+          <AlertTriangle className="h-6 w-6" strokeWidth={1.7} />
         </span>
-        <h1 className="display mt-4 text-xl">We could not price your cart.</h1>
+        <h1 className="display mt-4 text-[1.5rem]">
+          We could not price your cart.
+        </h1>
         <p className="mx-auto mt-2 max-w-sm text-sm text-ink-soft">{error}</p>
         <button
           type="button"
@@ -232,13 +236,13 @@ export function CartView({ retailer }: CartViewProps) {
 
   return (
     <div className="space-y-4 sm:space-y-5">
-      <header className="flex items-end justify-between gap-3">
+      <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Review order</p>
-          <h1 className="display mt-1 text-[1.75rem] leading-none sm:text-3xl">
+          <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
             Your cart
           </h1>
-          <p className="mt-1.5 text-xs text-ink-soft">
+          <p className="mt-2 text-xs text-ink-soft">
             {currentPreview.totals.paidCases} paid case
             {currentPreview.totals.paidCases === 1 ? "" : "s"}
             {currentPreview.totals.freeCases > 0
@@ -259,7 +263,7 @@ export function CartView({ retailer }: CartViewProps) {
       </header>
 
       {hydrated && repeating && (
-        <div className="flex items-start gap-2 rounded-xl border border-blue/20 bg-blue-soft px-3.5 py-3 text-xs leading-relaxed text-blue">
+        <div className="flex items-start gap-2 rounded-lg border border-blue/20 bg-blue-soft px-3.5 py-3 text-xs leading-relaxed text-blue">
           <RotateCcw className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <p>
             This cart repeats an earlier order. Free cases and prices are
@@ -274,8 +278,8 @@ export function CartView({ retailer }: CartViewProps) {
       />
 
       {currentPreview.credit.exceedsLimit && (
-        <div className="rounded-xl border border-amber/25 bg-amber-soft px-3.5 py-3 text-xs leading-relaxed text-amber">
-          <p className="flex items-center gap-1.5 font-bold">
+        <div className="rounded-lg border border-amber/25 bg-amber-soft px-3.5 py-3 text-xs leading-relaxed text-amber">
+          <p className="flex items-center gap-1.5 font-medium">
             <AlertTriangle className="h-3.5 w-3.5" /> This order will go on a
             credit hold
           </p>
@@ -291,9 +295,9 @@ export function CartView({ retailer }: CartViewProps) {
       {blockingWarnings.length > 0 && (
         <div
           role="alert"
-          className="rounded-xl border border-red/20 bg-red-soft px-3.5 py-3 text-xs leading-relaxed text-red"
+          className="rounded-lg border border-red/20 bg-red-soft px-3.5 py-3 text-xs leading-relaxed text-red"
         >
-          <p className="font-bold">Some lines need attention</p>
+          <p className="font-medium">Some lines need attention</p>
           <ul className="mt-1 list-disc space-y-0.5 pl-4">
             {blockingWarnings.map((warning, index) => (
               <li key={`${warning.code}-${warning.productId}-${index}`}>
@@ -313,16 +317,16 @@ export function CartView({ retailer }: CartViewProps) {
                 {meta ? (
                   <Packshot product={meta} />
                 ) : (
-                  <div className="aspect-[4/5] rounded-xl bg-paper-deep" />
+                  <div className="aspect-[4/5] rounded-lg bg-paper-deep" />
                 )}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+                    <p className="text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink-muted">
                       {meta?.brandName ?? "Sahaj"}
                     </p>
-                    <h2 className="mt-0.5 text-sm font-semibold leading-tight text-ink">
+                    <h2 className="mt-1 text-sm font-medium leading-tight text-ink">
                       {line.name}
                     </h2>
                     <p className="mt-0.5 text-[0.6875rem] text-ink-muted">
@@ -333,7 +337,7 @@ export function CartView({ retailer }: CartViewProps) {
                   <button
                     type="button"
                     onClick={() => cart.remove(line.productId)}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink-muted transition hover:bg-red-soft hover:text-red"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-ink-muted transition hover:bg-red-soft hover:text-red"
                     aria-label={`Remove ${line.name}`}
                   >
                     <Trash2 className="h-4 w-4" />
@@ -355,7 +359,7 @@ export function CartView({ retailer }: CartViewProps) {
                     className="max-w-[9.5rem]"
                   />
                   <div className="text-right">
-                    <p className="money text-sm font-bold">
+                    <p className="money font-display text-sm font-medium">
                       {formatInr(line.lineTotalPaisa)}
                     </p>
                     {line.discountPaisa > 0 && (
@@ -374,8 +378,8 @@ export function CartView({ retailer }: CartViewProps) {
       {freeLines.length > 0 && (
         <section className="card overflow-hidden border-green/20 bg-green-soft/50">
           <div className="flex items-center gap-2 border-b border-green/15 px-4 py-3">
-            <Gift className="h-4 w-4 text-green-dark" />
-            <h2 className="text-sm font-bold text-green-dark">
+            <Gift className="h-4 w-4 text-green-dark" strokeWidth={1.7} />
+            <h2 className="text-sm font-medium text-green-dark">
               Free cases added
             </h2>
             <span className="pill ml-auto bg-surface text-green-dark">
@@ -389,7 +393,7 @@ export function CartView({ retailer }: CartViewProps) {
                 className="flex items-center justify-between gap-3 px-4 py-3"
               >
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-green-dark">
+                  <p className="text-sm font-medium text-green-dark">
                     {line.name}
                   </p>
                   <p className="text-[0.6875rem] text-green-dark/70">
@@ -397,7 +401,7 @@ export function CartView({ retailer }: CartViewProps) {
                     {line.schemeExplanation}
                   </p>
                 </div>
-                <span className="money shrink-0 text-xs font-bold text-green-dark">
+                <span className="money shrink-0 text-xs font-medium text-green-dark">
                   {formatInr(line.qtyCases * line.unitPricePaisa)} value
                 </span>
               </li>
@@ -408,7 +412,9 @@ export function CartView({ retailer }: CartViewProps) {
 
       {currentPreview.nudges.length > 0 && (
         <section className="card border-amber/20 bg-amber-soft/45 p-4">
-          <h2 className="text-xs font-bold text-amber">Get the next scheme</h2>
+          <h2 className="text-xs font-medium text-amber">
+            Get the next scheme
+          </h2>
           <ul className="mt-2 space-y-2">
             {currentPreview.nudges.map((nudge) => (
               <li
@@ -432,7 +438,7 @@ export function CartView({ retailer }: CartViewProps) {
       )}
 
       <section className="card p-4">
-        <h2 className="display text-lg">Order summary</h2>
+        <h2 className="display text-lg font-medium">Order summary</h2>
         <dl className="mt-3 space-y-1.5 text-xs">
           <SummaryRow
             label="Subtotal"
@@ -467,18 +473,18 @@ export function CartView({ retailer }: CartViewProps) {
           />
           <div className="rule my-1.5" />
           <div className="flex items-baseline justify-between gap-3 pt-1">
-            <dt className="text-sm font-bold text-ink">Payable</dt>
-            <dd className="money text-xl font-bold text-ink">
+            <dt className="text-sm font-medium text-ink">Payable</dt>
+            <dd className="money font-display text-[1.6rem] font-medium leading-none text-ink">
               {formatInr(currentPreview.totals.totalPaisa)}
             </dd>
           </div>
           {totalSavings > 0 && (
-            <p className="text-right text-[0.6875rem] font-semibold text-green-dark">
+            <p className="text-right text-[0.6875rem] font-medium text-green-dark">
               You save {formatInr(totalSavings)} on this order
             </p>
           )}
         </dl>
-        <p className="mt-3 rounded-lg bg-paper/70 px-3 py-2 text-[0.6875rem] leading-relaxed text-ink-muted">
+        <p className="mt-3 rounded-md bg-paper/70 px-3 py-2 text-[0.6875rem] leading-relaxed text-ink-muted">
           Prices include GST unless the product says otherwise. The desk
           rechecks price, stock, schemes and credit before dispatch.
         </p>
@@ -505,7 +511,7 @@ export function CartView({ retailer }: CartViewProps) {
       {submitError && (
         <div
           role="alert"
-          className="rounded-xl border border-red/20 bg-red-soft px-3.5 py-3 text-xs text-red"
+          className="rounded-lg border border-red/20 bg-red-soft px-3.5 py-3 text-xs text-red"
         >
           {submitError}
         </div>
@@ -559,7 +565,7 @@ function SummaryRow({
     <div className="flex items-center justify-between gap-3">
       <dt className="text-ink-soft">{label}</dt>
       <dd
-        className={`money font-semibold ${green ? "text-green-dark" : "text-ink"}`}
+        className={`money font-medium ${green ? "text-green-dark" : "text-ink"}`}
       >
         {value}
       </dd>
@@ -574,7 +580,7 @@ function CartSkeleton() {
         <div className="skeleton h-3 w-24" />
         <div className="skeleton h-8 w-40" />
       </div>
-      <div className="skeleton h-24 w-full rounded-2xl" />
+      <div className="skeleton h-24 w-full rounded-xl" />
       <div className="card divide-y divide-line overflow-hidden">
         {[0, 1, 2].map((index) => (
           <div key={index} className="flex gap-3 p-3.5">
@@ -588,7 +594,7 @@ function CartSkeleton() {
           </div>
         ))}
       </div>
-      <div className="skeleton h-40 w-full rounded-2xl" />
+      <div className="skeleton h-40 w-full rounded-xl" />
     </div>
   );
 }

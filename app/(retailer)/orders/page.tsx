@@ -53,13 +53,13 @@ export default async function OrdersPage({
 
   return (
     <div className="space-y-4">
-      <header className="flex items-end justify-between gap-3">
+      <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Order history</p>
-          <h1 className="display mt-1 text-[1.75rem] leading-none sm:text-3xl">
+          <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
             Your orders
           </h1>
-          <p className="mt-1.5 text-xs text-ink-soft">
+          <p className="mt-2 text-xs text-ink-soft">
             {orders.length} order{orders.length === 1 ? "" : "s"} placed from{" "}
             {session.retailer.shopName}
           </p>
@@ -89,17 +89,17 @@ export default async function OrdersPage({
               }
               aria-current={active ? "page" : undefined}
               className={[
-                "inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-xs font-semibold transition",
+                "inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-md border px-3.5 text-xs font-medium transition",
                 active
-                  ? "border-green bg-green text-surface"
-                  : "border-line-strong bg-surface text-ink-soft hover:border-ink-muted hover:text-ink",
+                  ? "border-ink bg-ink text-white"
+                  : "border-line-strong bg-surface text-ink-soft hover:border-ink/30 hover:text-ink",
               ].join(" ")}
             >
               {filter.label}
               <span
                 className={[
                   "rounded-full px-1.5 text-[0.625rem]",
-                  active ? "bg-surface/15" : "bg-paper-deep text-ink-muted",
+                  active ? "bg-white/15" : "bg-paper-deep text-ink-muted",
                 ].join(" ")}
               >
                 {count}
@@ -111,10 +111,10 @@ export default async function OrdersPage({
 
       {filtered.length === 0 ? (
         <div className="card px-6 py-14 text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-paper-deep text-ink-muted">
-            <ClipboardList className="h-7 w-7" />
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-paper-deep text-ink-muted">
+            <ClipboardList className="h-7 w-7" strokeWidth={1.6} />
           </span>
-          <h2 className="display mt-5 text-xl">
+          <h2 className="display mt-5 text-[1.6rem] leading-tight">
             {orders.length === 0 ? "No orders yet." : "Nothing in this status."}
           </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
@@ -142,34 +142,35 @@ export default async function OrdersPage({
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="money text-sm font-bold text-ink">
+                    <span className="money font-display text-sm font-medium text-ink">
                       {order.orderNo}
                     </span>
                     <OrderStatusPill status={order.status} short />
                   </div>
-                  <p className="mt-1 text-[0.6875rem] text-ink-muted">
+                  <p className="mt-1.5 text-[0.6875rem] text-ink-muted">
                     {formatDateIst(order.createdAt)} ·{" "}
                     {ORDER_SOURCE_LABELS[order.source]}
                   </p>
                 </div>
-                <p className="money shrink-0 text-right text-base font-bold">
+                <p className="money font-display shrink-0 text-right text-base font-medium">
                   {formatInr(order.totalPaisa)}
                 </p>
               </div>
 
-              <div className="mt-3 flex items-center gap-3 border-t border-line/80 pt-2.5 text-[0.6875rem] text-ink-soft">
+              <div className="mt-3 flex items-center gap-3 border-t border-line pt-2.5 text-[0.6875rem] text-ink-soft">
                 <span>
                   {order.paidCases} paid case{order.paidCases === 1 ? "" : "s"}
                 </span>
                 {order.freeCases > 0 && (
                   <span className="flex items-center gap-1 text-green-dark">
-                    <Gift className="h-3 w-3" /> {order.freeCases} free
+                    <Gift className="h-3 w-3" strokeWidth={1.7} />{" "}
+                    {order.freeCases} free
                   </span>
                 )}
                 {order.creditStatus === "hold" && (
                   <span className="text-amber">Credit hold</span>
                 )}
-                <span className="ml-auto flex items-center gap-1 font-semibold text-green">
+                <span className="ml-auto flex items-center gap-1 font-medium text-green">
                   View <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </div>

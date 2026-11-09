@@ -27,9 +27,7 @@ export function OrderStatusPill({
 }) {
   const meta = ORDER_STATUS_META[status];
   return (
-    <span
-      className={cn("pill font-semibold", toneClasses[meta.tone], className)}
-    >
+    <span className={cn("pill font-medium", toneClasses[meta.tone], className)}>
       <span
         aria-hidden="true"
         className={cn(
@@ -63,7 +61,7 @@ export function CreditStatusPill({
   return (
     <span
       className={cn(
-        "pill font-semibold",
+        "pill font-medium",
         status === "approved"
           ? "bg-green-soft text-green-dark"
           : status === "rejected"

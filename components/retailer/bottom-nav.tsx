@@ -50,7 +50,7 @@ export function BottomNav({ language }: { language: Language }) {
   return (
     <nav
       aria-label={language === "hi" ? "दुकानदार अनुभाग" : "Retailer sections"}
-      className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur"
+      className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/92 backdrop-blur-xl"
     >
       <ul className="mx-auto grid max-w-2xl grid-cols-4">
         {items.map((item) => {
@@ -62,18 +62,22 @@ export function BottomNav({ language }: { language: Language }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative flex min-h-16 flex-col items-center justify-center gap-1 px-1 text-[0.625rem] font-semibold transition",
-                  active ? "text-green" : "text-ink-muted hover:text-ink-soft",
+                  "relative flex min-h-16 flex-col items-center justify-center gap-1.5 px-1 text-[0.625rem] font-medium tracking-[0.01em] transition",
+                  active ? "text-ink" : "text-ink-muted hover:text-ink-soft",
                 )}
               >
                 {active && (
                   <span
                     aria-hidden="true"
-                    className="absolute top-0 h-0.5 w-8 rounded-full bg-green"
+                    className="absolute top-0 h-0.5 w-7 rounded-b-full bg-green"
                   />
                 )}
                 <Icon
-                  className={cn("h-5 w-5", active && "stroke-[2.2]")}
+                  className={cn(
+                    "h-5 w-5",
+                    active ? "text-green" : "text-current",
+                  )}
+                  strokeWidth={active ? 2 : 1.7}
                   aria-hidden="true"
                 />
                 {t(language, item.labelKey)}

@@ -45,65 +45,74 @@ export function Packshot({
   return (
     <div
       className={cn(
-        "relative overflow-hidden",
-        large ? "aspect-[5/4] rounded-2xl" : "aspect-[4/5] rounded-xl",
+        "relative overflow-hidden bg-[#ebe9e9]",
+        large ? "aspect-[5/4] rounded-xl" : "aspect-[4/5] rounded-lg",
         className,
       )}
-      style={{
-        backgroundColor: `${product.brandAccent}12`,
-        border: `1px solid ${product.brandAccent}24`,
-      }}
+      style={{ border: "1px solid rgba(11, 3, 6, 0.09)" }}
       role="img"
       aria-label={`${product.brandName} ${product.name}, ${product.packSize} pack`}
     >
       <div
         aria-hidden="true"
         className={cn(
-          "absolute rounded-full",
+          "absolute rounded-full border border-ink/[0.08]",
           large ? "-right-16 -top-20 h-64 w-64" : "-right-8 -top-10 h-32 w-32",
         )}
-        style={{ backgroundColor: product.brandAccent, opacity: 0.09 }}
       />
       <div
         aria-hidden="true"
         className={cn(
-          "absolute rounded-full border",
+          "absolute rotate-12 border border-ink/[0.06]",
           large
             ? "-bottom-24 -left-16 h-64 w-64"
             : "-bottom-10 -left-8 h-28 w-28",
         )}
-        style={{ borderColor: product.brandAccent, opacity: 0.16 }}
+      />
+      <div
+        aria-hidden="true"
+        className={cn(
+          "absolute h-px bg-ink/10",
+          large ? "left-5 right-5 top-5" : "left-3 right-3 top-3",
+        )}
       />
 
       <div
         className={cn(
-          "absolute bottom-0 flex flex-col overflow-hidden rounded-t-md bg-surface shadow-[0_10px_24px_-16px_rgba(0,0,0,0.45)]",
+          "absolute bottom-0 flex flex-col overflow-hidden rounded-t-sm bg-white shadow-[0_14px_30px_-22px_rgba(11,3,6,0.55)]",
           large ? "left-12 right-12 top-12" : "left-4 right-4 top-5",
         )}
         style={{
-          border: `1px solid ${product.brandAccent}30`,
+          border: "1px solid rgba(11, 3, 6, 0.1)",
           borderBottom: 0,
         }}
       >
         <div
-          className={large ? "h-2.5" : "h-1.5"}
+          className={large ? "h-2" : "h-1.5"}
           style={{ backgroundColor: product.brandAccent }}
         />
         <div className={large ? "px-5 py-4" : "px-2.5 py-2"}>
           <p
             className={cn(
-              "font-semibold uppercase leading-none",
+              "flex items-center gap-1 font-medium uppercase leading-none text-ink-soft",
               large
-                ? "text-[0.625rem] tracking-[0.2em]"
+                ? "text-[0.625rem] tracking-[0.18em]"
                 : "text-[0.4rem] tracking-[0.14em]",
             )}
-            style={{ color: product.brandAccent }}
           >
+            <span
+              aria-hidden="true"
+              className={cn(
+                "shrink-0 rounded-full",
+                large ? "h-1.5 w-1.5" : "h-1 w-1",
+              )}
+              style={{ backgroundColor: product.brandAccent }}
+            />
             {product.brandName}
           </p>
           <p
             className={cn(
-              "display mt-1 line-clamp-3 font-semibold leading-[1.1] text-ink",
+              "display mt-1.5 line-clamp-3 leading-[1.08] text-ink",
               large ? "text-xl sm:text-2xl" : "text-[0.78rem]",
             )}
           >

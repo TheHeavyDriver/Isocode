@@ -47,10 +47,10 @@ export function LanguageToggle({ initial }: { initial: Language }) {
               disabled={busy !== null}
               aria-pressed={active}
               className={[
-                "flex min-h-11 items-center justify-center gap-1.5 rounded-xl border px-3 text-sm font-semibold transition",
+                "flex min-h-11 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition",
                 active
-                  ? "border-green bg-green-soft text-green-dark"
-                  : "border-line-strong bg-surface text-ink-soft hover:border-green hover:text-green",
+                  ? "border-ink bg-ink text-white"
+                  : "border-line-strong bg-surface text-ink-soft hover:border-ink/30 hover:text-ink",
               ].join(" ")}
             >
               {busy === option ? (
@@ -66,7 +66,7 @@ export function LanguageToggle({ initial }: { initial: Language }) {
         })}
       </div>
       {message && (
-        <p className="mt-2 text-[0.6875rem] font-semibold text-green-dark">
+        <p className="mt-2 text-[0.6875rem] font-medium text-green-dark">
           {message}
         </p>
       )}

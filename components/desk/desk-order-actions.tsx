@@ -68,7 +68,7 @@ export function DeskOrderActions({ order }: { order: OrderDetail }) {
 
   if (order.status === "cancelled") {
     return (
-      <div className="rounded-xl border border-line bg-paper/60 px-3.5 py-3 text-xs leading-relaxed text-ink-soft">
+      <div className="rounded-lg border border-line bg-paper/60 px-3.5 py-3 text-xs leading-relaxed text-ink-soft">
         This order was cancelled
         {order.creditReason ? `: ${order.creditReason}` : "."} Stock has been
         returned to the catalogue.
@@ -78,7 +78,7 @@ export function DeskOrderActions({ order }: { order: OrderDetail }) {
 
   if (order.status === "exported") {
     return (
-      <div className="rounded-xl border border-blue/20 bg-blue-soft px-3.5 py-3 text-xs leading-relaxed text-blue">
+      <div className="rounded-lg border border-blue/20 bg-blue-soft px-3.5 py-3 text-xs leading-relaxed text-blue">
         This order is already exported to Tally. It cannot be edited or exported
         again.
       </div>
@@ -96,7 +96,7 @@ export function DeskOrderActions({ order }: { order: OrderDetail }) {
         </p>
       )}
       {notice && (
-        <p className="rounded-lg border border-green/20 bg-green-soft px-3 py-2 text-xs font-semibold text-green-dark">
+        <p className="rounded-lg border border-green/20 bg-green-soft px-3 py-2 text-xs font-medium text-green-dark">
           {notice}
         </p>
       )}
@@ -118,8 +118,8 @@ export function DeskOrderActions({ order }: { order: OrderDetail }) {
       )}
 
       {order.status === "credit_hold" && order.creditStatus !== "approved" && (
-        <div className="rounded-xl border border-amber/20 bg-amber-soft p-3">
-          <p className="flex items-center gap-1.5 text-xs font-bold text-amber">
+        <div className="rounded-lg border border-amber/20 bg-amber-soft p-3">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-amber">
             <CircleAlert className="h-3.5 w-3.5" /> Credit decision needed
           </p>
           <p className="mt-1 text-[0.6875rem] leading-relaxed text-amber/85">
@@ -197,10 +197,10 @@ export function DeskOrderActions({ order }: { order: OrderDetail }) {
               <MessageSquareText className="h-4 w-4" /> Put on credit hold
             </button>
           ) : (
-            <div className="rounded-xl border border-amber/25 bg-amber-soft p-3">
+            <div className="rounded-lg border border-amber/25 bg-amber-soft p-3">
               <label
                 htmlFor="hold-reason"
-                className="text-xs font-bold text-amber"
+                className="text-xs font-medium text-amber"
               >
                 Why does this order need a hold?
               </label>
@@ -258,8 +258,8 @@ export function DeskOrderActions({ order }: { order: OrderDetail }) {
               <Ban className="h-3.5 w-3.5" /> Cancel order
             </button>
           ) : (
-            <div className="rounded-xl border border-red/20 bg-red-soft p-3">
-              <p className="text-xs font-bold text-red">
+            <div className="rounded-lg border border-red/20 bg-red-soft p-3">
+              <p className="text-xs font-medium text-red">
                 Cancel this order and release stock?
               </p>
               <textarea

@@ -13,8 +13,8 @@ export default async function RetailerLayout({
 
   return (
     <div className="min-h-dvh pb-36">
-      <header className="sticky top-0 z-30 border-b border-line/80 bg-paper/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5">
+      <header className="sticky top-0 z-30 border-b border-line bg-paper/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <Link
             href="/shop"
             className="flex min-w-0 items-center gap-2.5"
@@ -22,10 +22,14 @@ export default async function RetailerLayout({
           >
             <Logo compact />
             <span className="min-w-0 leading-tight">
-              <span className="block truncate text-[0.8125rem] font-bold text-ink">
+              <span className="block truncate text-[0.8125rem] font-medium text-ink">
                 {session.retailer.shopName}
               </span>
-              <span className="block truncate text-[0.625rem] text-ink-muted">
+              <span className="mt-0.5 flex items-center gap-1.5 truncate text-[0.625rem] text-ink-muted">
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-green"
+                />
                 {session.retailer.ownerName} ·{" "}
                 {t(session.retailer.language, "retailer")}
               </span>
@@ -35,7 +39,7 @@ export default async function RetailerLayout({
         </div>
       </header>
 
-      <main id="main" className="mx-auto max-w-6xl px-4 py-5 sm:py-6">
+      <main id="main" className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-7">
         {children}
       </main>
 
