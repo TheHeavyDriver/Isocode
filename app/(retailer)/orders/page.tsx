@@ -119,8 +119,8 @@ export default async function OrdersPage({
           </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
             {orders.length === 0
-              ? "Your first order will appear here with its desk status, scheme savings, and free cases."
-              : `You have no ${ORDER_STATUS_META[status as OrderStatus]?.short.toLowerCase() ?? ""} orders right now. Try another tab.`}
+              ? "Your orders will appear here once placed."
+              : `No ${ORDER_STATUS_META[status as OrderStatus]?.short.toLowerCase() ?? ""} orders. Try another tab.`}
           </p>
           <div className="mt-5 flex flex-col justify-center gap-2 sm:flex-row">
             <Link href="/shop" className="btn btn-primary">

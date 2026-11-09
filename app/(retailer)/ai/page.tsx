@@ -14,11 +14,5 @@ export default async function AiOrderPage() {
     listRetailerCaptures(session.retailer.id, 8),
   ]);
 
-  return (
-    <AiCaptureReview
-      products={catalogue.products}
-      captures={captures}
-      language={session.retailer.language}
-    />
-  );
+  return <AiCaptureReview products={catalogue.products} captures={captures} />;
 }

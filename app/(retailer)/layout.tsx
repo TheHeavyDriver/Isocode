@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { requireRetailerPage } from "@/lib/auth/session";
-import { t } from "@/lib/i18n";
 import { Logo } from "@/components/ui/logo";
 import { BottomNav } from "@/components/retailer/bottom-nav";
 import { CartBar } from "@/components/retailer/cart-bar";
@@ -30,8 +29,7 @@ export default async function RetailerLayout({
                   aria-hidden="true"
                   className="h-1.5 w-1.5 shrink-0 rounded-full bg-green"
                 />
-                {session.retailer.ownerName} ·{" "}
-                {t(session.retailer.language, "retailer")}
+                {session.retailer.ownerName} · Retailer
               </span>
             </span>
           </Link>
@@ -44,7 +42,7 @@ export default async function RetailerLayout({
       </main>
 
       <CartBar />
-      <BottomNav language={session.retailer.language} />
+      <BottomNav />
     </div>
   );
 }

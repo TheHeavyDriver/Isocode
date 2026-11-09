@@ -42,7 +42,6 @@ interface CartViewProps {
     ownerName: string;
     creditLimitPaisa: number;
     outstandingPaisa: number;
-    language: "hi" | "en";
   };
 }
 

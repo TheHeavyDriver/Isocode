@@ -13,11 +13,10 @@ export default function NotFound() {
           <Logo className="justify-center" />
           <p className="eyebrow mt-8">404</p>
           <h1 className="display mt-2 text-[2rem] leading-tight">
-            This page is not in the ledger.
+            Page not found.
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            The link may be old, or the order may have moved. Go back to the
-            catalogue and carry on.
+            The link may be old. Go back to the catalogue.
           </p>
           <Link href="/shop" className="btn btn-primary mt-6 w-full">
             Back to the shop

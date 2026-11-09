@@ -15,7 +15,6 @@ export default async function CartPage() {
         ownerName: session.retailer.ownerName,
         creditLimitPaisa: session.retailer.creditLimitPaisa,
         outstandingPaisa: session.retailer.outstandingPaisa,
-        language: session.retailer.language,
       }}
     />
   );

@@ -44,7 +44,7 @@ export default async function LoginPage() {
               Sahaj Order
             </p>
             <p className="mt-1.5 text-[0.625rem] uppercase tracking-[0.16em] text-white/40">
-              सहज ऑर्डर
+              Order capture
             </p>
           </div>
           <span className="ml-auto rounded-full border border-white/15 px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.14em] text-white/45">
@@ -58,17 +58,15 @@ export default async function LoginPage() {
               aria-hidden="true"
               className="h-1.5 w-1.5 rounded-full bg-green"
             />
-            For the distributor&apos;s shopkeepers
+            B2B distributor ordering
           </p>
           <h1 className="display mt-5 text-[3rem] leading-[1.04] tracking-[-0.035em] xl:text-[3.8rem]">
-            The order is ready{" "}
-            <span className="text-[#7fd0b6]">
-              before the customer leaves the counter.
-            </span>
+            Fast ordering for{" "}
+            <span className="text-[#7fd0b6]">kirana shops.</span>
           </h1>
           <p className="mt-6 max-w-md text-[0.95rem] leading-relaxed text-white/55">
-            Live stock, your own price, and the current scheme. Build the order
-            in a minute and send it straight to the desk.
+            Live stock, retailer pricing, and schemes. Place orders or capture
+            them from text.
           </p>
         </div>
 

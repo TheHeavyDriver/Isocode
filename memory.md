@@ -3,7 +3,7 @@
 **Purpose:** The chronological source of truth for every material change, decision, and open item in this project. Read this first. Append an entry after every change; do not wait for the user to ask.
 
 **Last updated:** 9 November 2026  
-**Current phase:** Core slice implemented and verified locally; the UI has been restyled to the inspiration design and awaits a final visual pass and commit. Live deployment and submission packaging remain.  
+**Current phase:** Core slice implemented and verified locally; UI simplified to English-only; live deployment and submission packaging remain.  
 **Chosen problem:** A — distributor order capture (`a.md`).
 
 ---

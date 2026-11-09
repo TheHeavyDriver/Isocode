@@ -46,20 +46,19 @@ interface LineDraft {
 interface AiCaptureReviewProps {
   products: CatalogueProduct[];
   captures: CaptureSummaryView[];
-  language: "hi" | "en";
 }
 
 const SAMPLES = [
   {
-    label: "English · biscuits",
-    text: "10 case glucose biscuit 75 g aur 5 case Marie biscuit 150 g bhej do",
+    label: "Biscuits",
+    text: "10 case glucose biscuit 75 g and 5 case Marie biscuit 150 g",
   },
   {
-    label: "हिंदी · राशन",
-    text: "भैया 12 पेटी मारी बिस्किट और 6 पेटी डिटर्जेंट 1 किलो भेज दो",
+    label: "Mixed items",
+    text: "12 case Marie biscuit and 6 case detergent 1 kg",
   },
   {
-    label: "Mixed · three lines",
+    label: "Three lines",
     text: "5 case detergent 1 kg, 8 case aloo bhujia 100 g, 2 case dishwash 500 ml",
   },
 ];
@@ -92,11 +91,7 @@ function statusLabel(status: CaptureSummaryView["status"]): string {
   return "Reading";
 }
 
-export function AiCaptureReview({
-  products,
-  captures,
-  language,
-}: AiCaptureReviewProps) {
+export function AiCaptureReview({ products, captures }: AiCaptureReviewProps) {
   const cart = useCart();
   const router = useRouter();
   const [text, setText] = useState("");
@@ -249,9 +244,8 @@ export function AiCaptureReview({
           Paste the WhatsApp order.
         </h1>
         <p className="mt-2 max-w-xl text-xs leading-relaxed text-ink-soft">
-          {language === "hi"
-            ? "हिंदी, English या मिली-जुली भाषा में लिखें। AI सिर्फ सुझाव देगा — हर लाइन आपकी मंज़ूरी के बाद ही कार्ट में जाएगी।"
-            : "Hindi, English, or a mix of both. AI only suggests lines; nothing reaches your cart or the desk until you review and confirm it."}
+          Paste the order text. AI suggests lines; nothing reaches your cart
+          until you confirm.
         </p>
       </header>
 

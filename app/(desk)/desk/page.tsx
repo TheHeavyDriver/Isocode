@@ -89,10 +89,10 @@ export default async function DeskQueuePage({
           </h1>
           <p className="mt-2 text-xs text-ink-soft">
             {needsAction === 0
-              ? "Nothing waiting for a desk decision."
+              ? "Nothing waiting."
               : `${needsAction} order${needsAction === 1 ? "" : "s"} need a decision`}
             {counts.confirmed > 0
-              ? ` · ${counts.confirmed} confirmed waiting for Tally`
+              ? ` · ${counts.confirmed} ready for export`
               : ""}
           </p>
         </div>
@@ -238,8 +238,8 @@ export default async function DeskQueuePage({
           </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
             {q
-              ? `Try an order number, shop name, or phone number, or clear the filters.`
-              : "Retailer orders appear here as soon as they are placed. Try another tab or date range."}
+              ? `Try an order number, shop name, or phone.`
+              : "Orders appear here once placed. Try another tab or date range."}
           </p>
           <Link href="/desk" className="btn btn-secondary mt-5">
             Clear filters

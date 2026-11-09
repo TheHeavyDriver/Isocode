@@ -10,46 +10,45 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { t, type CopyKey, type Language } from "@/lib/i18n";
 
 const items: Array<{
   href: string;
-  labelKey: CopyKey;
+  label: string;
   icon: LucideIcon;
   match: (pathname: string) => boolean;
 }> = [
   {
     href: "/shop",
-    labelKey: "shop",
+    label: "Shop",
     icon: Store,
     match: (pathname) => pathname === "/shop" || pathname.startsWith("/shop/"),
   },
   {
     href: "/ai",
-    labelKey: "aiOrder",
+    label: "AI order",
     icon: Sparkles,
     match: (pathname) => pathname.startsWith("/ai"),
   },
   {
     href: "/orders",
-    labelKey: "orders",
+    label: "Orders",
     icon: ClipboardList,
     match: (pathname) => pathname.startsWith("/orders"),
   },
   {
     href: "/account",
-    labelKey: "account",
+    label: "Account",
     icon: UserRound,
     match: (pathname) => pathname.startsWith("/account"),
   },
 ];
 
-export function BottomNav({ language }: { language: Language }) {
+export function BottomNav() {
   const pathname = usePathname();
 
   return (
     <nav
-      aria-label={language === "hi" ? "दुकानदार अनुभाग" : "Retailer sections"}
+      aria-label="Retailer sections"
       className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/92 backdrop-blur-xl"
     >
       <ul className="mx-auto grid max-w-2xl grid-cols-4">
@@ -80,7 +79,7 @@ export function BottomNav({ language }: { language: Language }) {
                   strokeWidth={active ? 2 : 1.7}
                   aria-hidden="true"
                 />
-                {t(language, item.labelKey)}
+                {item.label}
               </Link>
             </li>
           );

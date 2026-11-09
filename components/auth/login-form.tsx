@@ -147,7 +147,7 @@ export function LoginForm() {
             Sahaj Order
           </p>
           <p className="mt-1.5 text-[0.625rem] uppercase tracking-[0.14em] text-ink-muted">
-            सहज ऑर्डर
+            Order capture
           </p>
         </div>
       </div>
@@ -168,11 +168,10 @@ export function LoginForm() {
           {step === "phone" ? (
             <>
               <h1 className="display text-[1.9rem] leading-[1.06] sm:text-[2.25rem]">
-                Start your order
+                Sign in
               </h1>
               <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                Sign in with the mobile number registered with the distributor.
-                No password needed.
+                Enter your registered mobile number. We&apos;ll send a code.
               </p>
 
               <div className="mt-6 rounded-lg border border-line bg-paper/70 p-2.5">
@@ -238,7 +237,7 @@ export function LoginForm() {
                   />
                 </div>
                 <p id="phone-help" className="mt-2 text-xs text-ink-muted">
-                  We text a one-time code. Standard SMS rates may apply.
+                  We&apos;ll send a one-time code.
                 </p>
 
                 {error && (
@@ -282,14 +281,14 @@ export function LoginForm() {
               </button>
 
               <h1 className="display text-[1.9rem] leading-[1.06] sm:text-[2.25rem]">
-                Enter the code
+                Enter code
               </h1>
               <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                Sent to{" "}
+                Code sent to{" "}
                 <span className="font-medium text-ink">
                   {normalized ? maskPhone(normalized) : "your number"}
                 </span>
-                . It works once and expires in 5 minutes.
+                . Valid for 5 minutes.
               </p>
 
               <form
@@ -385,8 +384,7 @@ export function LoginForm() {
         <div className="flex items-start gap-2 border-t border-line bg-paper/45 px-5 py-3.5 text-[0.6875rem] leading-relaxed text-ink-muted sm:px-7">
           <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green" />
           <p>
-            Your prices, credit, and orders are visible only to your shop and
-            the distributor&apos;s order desk.
+            Your data is scoped to your shop and visible only to the order desk.
           </p>
         </div>
       </div>

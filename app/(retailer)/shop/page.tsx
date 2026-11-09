@@ -57,7 +57,7 @@ export default async function ShopPage({
           </h1>
           <p className="mt-2 text-xs text-ink-soft">
             {catalogue.total} product{catalogue.total === 1 ? "" : "s"} at your
-            price{session.retailer.language === "hi" ? " · आपके दाम पर" : ""}
+            price
           </p>
         </div>
         <span className="hidden items-center gap-1.5 rounded-full border border-line-strong bg-surface px-2.5 py-1 text-[0.625rem] font-medium uppercase tracking-[0.12em] text-ink-muted sm:inline-flex">
@@ -90,10 +90,10 @@ export default async function ShopPage({
             AI order capture
           </span>
           <span className="mt-1 block text-sm font-medium">
-            Have a WhatsApp order?
+            Paste a text order
           </span>
           <span className="mt-0.5 block text-[0.6875rem] leading-relaxed text-white/50">
-            Paste it in Hindi or English · AI suggests lines · you confirm
+            AI suggests lines, you confirm
           </span>
         </span>
         <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-[#7fd0b6] transition group-hover:border-[#7fd0b6]/50">
@@ -117,7 +117,7 @@ export default async function ShopPage({
             type="search"
             name="q"
             defaultValue={filters.q ?? ""}
-            placeholder="Search biscuit, चाय पत्ती, SKU…"
+            placeholder="Search product name or SKU…"
             aria-label="Search products"
             className="field h-12 pl-10 pr-24 text-sm"
           />
@@ -209,8 +209,7 @@ export default async function ShopPage({
             No products match.
           </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
-            Try the Hindi name for a product, a shorter word, or clear the
-            filters. For example, “चाय पत्ती” finds tea.
+            Try a shorter term or clear the filters.
           </p>
           <Link href="/shop" className="btn btn-primary mt-5">
             Clear filters
@@ -225,9 +224,7 @@ export default async function ShopPage({
       )}
 
       <p className="mx-auto max-w-2xl border-t border-line pt-4 text-center text-[0.625rem] leading-relaxed text-ink-muted">
-        Prices include GST unless marked otherwise. Schemes are applied on the
-        paid quantity and capped by free stock. The server rechecks everything
-        at checkout.
+        Prices include GST unless marked. Schemes applied at checkout.
       </p>
     </div>
   );

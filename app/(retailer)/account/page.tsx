@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   ClipboardList,
-  Languages,
   MapPin,
   Phone,
   ShieldCheck,
@@ -12,11 +11,9 @@ import {
   UserRound,
 } from "lucide-react";
 import { requireRetailerPage } from "@/lib/auth/session";
-import { t } from "@/lib/i18n";
 import { formatInr } from "@/lib/pricing/money";
 import { initials } from "@/lib/utils";
 import { CreditStrip } from "@/components/retailer/credit-strip";
-import { LanguageToggle } from "@/components/retailer/language-toggle";
 import { LogoutButton } from "@/components/auth/logout-button";
 
 export const metadata: Metadata = { title: "Account" };
@@ -25,17 +22,16 @@ export const dynamic = "force-dynamic";
 export default async function AccountPage() {
   const session = await requireRetailerPage();
   const { retailer } = session;
-  const language = retailer.language;
 
   return (
     <div className="space-y-4">
       <header>
-        <p className="eyebrow">{t(language, "account")}</p>
+        <p className="eyebrow">Account</p>
         <h1 className="display mt-2 text-[2rem] leading-[1.02] sm:text-[2.6rem]">
-          {t(language, "yourAccount")}
+          Your account
         </h1>
-        <p className="mt-2 max-w-xl text-xs leading-relaxed text-ink-soft">
-          {t(language, "accountIntro")}
+        <p className="mt-2.5 max-w-xl text-xs leading-relaxed text-ink-soft">
+          Your shop details and credit line.
         </p>
       </header>
 
@@ -54,9 +50,7 @@ export default async function AccountPage() {
             <Phone className="h-3 w-3" /> {retailer.phone}
           </p>
         </div>
-        <span className="pill bg-green-soft text-green-dark">
-          {t(language, "retailer")}
-        </span>
+        <span className="pill bg-green-soft text-green-dark">Retailer</span>
       </section>
 
       <CreditStrip
@@ -67,7 +61,7 @@ export default async function AccountPage() {
       <section className="card p-4">
         <h2 className="display flex items-center gap-2 text-lg font-medium">
           <Store className="h-4 w-4 text-green" strokeWidth={1.7} />
-          {t(language, "profile")}
+          Shop profile
         </h2>
         <dl className="mt-3 space-y-2.5 text-xs">
           <div className="flex items-start justify-between gap-3">
@@ -77,7 +71,7 @@ export default async function AccountPage() {
             </dd>
           </div>
           <div className="flex items-start justify-between gap-3">
-            <dt className="text-ink-muted">{t(language, "shopkeeper")}</dt>
+            <dt className="text-ink-muted">Owner</dt>
             <dd className="text-right font-medium text-ink">
               {retailer.ownerName}
             </dd>
@@ -109,22 +103,9 @@ export default async function AccountPage() {
           </div>
         </dl>
         <p className="mt-2 rounded-md bg-paper/70 px-3 py-2 text-[0.625rem] leading-relaxed text-ink-muted">
-          Credit is set by the distributor. Ask the desk if the limit or
-          outstanding balance looks wrong.
+          Credit limits are set by the distributor. Contact the desk if the
+          balance looks wrong.
         </p>
-      </section>
-
-      <section className="card p-4">
-        <h2 className="display flex items-center gap-2 text-lg font-medium">
-          <Languages className="h-4 w-4 text-green" strokeWidth={1.7} />
-          {t(language, "language")}
-        </h2>
-        <p className="mt-1 text-[0.6875rem] leading-relaxed text-ink-muted">
-          {t(language, "languageHelp")}
-        </p>
-        <div className="mt-3">
-          <LanguageToggle initial={language} />
-        </div>
       </section>
 
       <section className="grid gap-2 sm:grid-cols-3">
@@ -132,16 +113,15 @@ export default async function AccountPage() {
           href="/shop"
           className="card flex items-center gap-2 p-3 text-xs font-medium transition hover:border-line-strong"
         >
-          <Store className="h-4 w-4 text-green" strokeWidth={1.7} />{" "}
-          {t(language, "browseShop")}
+          <Store className="h-4 w-4 text-green" strokeWidth={1.7} /> Browse shop
           <ArrowRight className="ml-auto h-3.5 w-3.5 text-ink-muted" />
         </Link>
         <Link
           href="/ai"
           className="card flex items-center gap-2 p-3 text-xs font-medium transition hover:border-line-strong"
         >
-          <Sparkles className="h-4 w-4 text-green" strokeWidth={1.7} />{" "}
-          {t(language, "pasteOrder")}
+          <Sparkles className="h-4 w-4 text-green" strokeWidth={1.7} /> Paste
+          order
           <ArrowRight className="ml-auto h-3.5 w-3.5 text-ink-muted" />
         </Link>
         <Link
@@ -149,7 +129,7 @@ export default async function AccountPage() {
           className="card flex items-center gap-2 p-3 text-xs font-medium transition hover:border-line-strong"
         >
           <ClipboardList className="h-4 w-4 text-green" strokeWidth={1.7} />{" "}
-          {t(language, "orderHistory")}
+          Order history
           <ArrowRight className="ml-auto h-3.5 w-3.5 text-ink-muted" />
         </Link>
       </section>
@@ -164,10 +144,7 @@ export default async function AccountPage() {
           automatically, and signing out revokes this session on the server.
         </p>
         <div className="mt-3">
-          <LogoutButton
-            label={t(language, "signOut")}
-            className="btn btn-secondary w-full"
-          />
+          <LogoutButton label="Sign out" className="btn btn-secondary w-full" />
         </div>
       </section>
 
